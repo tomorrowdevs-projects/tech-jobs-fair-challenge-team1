@@ -104,4 +104,17 @@ class ContactController extends Controller
         // Restituisci i dati aggiornati del contatto
         return response()->json(['message' => 'Contact updated successfully', 'contact' => $contact]);
     }
+
+    public function destroy($id)
+    {
+        $contact = Contact::find($id);
+
+        if (!$contact) {
+            return response()->json(['error' => 'Contatto non trovato'], 404);
+        }
+
+        $contact->delete();
+
+        return response()->json(['message' => 'Contatto eliminato con successo'], 200);
+    }
 }
