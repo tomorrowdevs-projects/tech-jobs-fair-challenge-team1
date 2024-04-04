@@ -16,4 +16,15 @@ class UserController extends Controller
         // Restituisci gli utenti come risposta JSON
         return response()->json(['users' => $users]);
     }
+
+    public function show($id)
+    {
+        $user = User::find($id);
+
+        if (!$user) {
+            return response()->json(['error' => 'User not found'], 404);
+        }
+
+        return response()->json(['user' => $user], 200);
+    }
 }
