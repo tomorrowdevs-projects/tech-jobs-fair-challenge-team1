@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\ContactController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\UserController;
@@ -28,6 +29,12 @@ Route::get('/users/{id}', [UserController::class, 'show']);
 Route::post('/users', [UserController::class, 'store']);
 Route::put('/users/{id}', [UserController::class, 'update']);
 Route::delete('/users/{id}', [UserController::class, 'destroy']);
+
+Route::get('/contacts', [ContactController::class, 'index']);
+Route::get('/contacts/{id}', [ContactController::class, 'show']);
+Route::post('/contacts', [ContactController::class, 'store']);
+
+
 
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout',  [LoginController::class, 'logout']);
