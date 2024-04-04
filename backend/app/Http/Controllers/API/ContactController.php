@@ -68,4 +68,53 @@ class ContactController extends Controller
 
         return response()->json(['contact' => $contact], 201);
     }
+
+    public function update(Request $request, $id)
+    {
+        // Trova il contatto da aggiornare
+        $contact = Contact::find($id);
+
+        // Se il contatto non esiste, restituisci un messaggio di errore
+        if (!$contact) {
+            return response()->json(['error' => 'Contact not found'], 404);
+        }
+
+        // Validazione dei dati inviati
+        $validatedData = $request->validate([
+            'name' => 'string|max:255',
+            'surname' => 'string|max:255',
+            'email' => 'email|max:255|unique:contacts,email,' . $id,
+            'phone_number' => 'string|max:255',
+            'category_id' => 'integer|exists:categories,id',
+            'socials' => 'string|nullable',
+            'country' => 'string|nullable',
+            'region' => 'string|nullable',
+            'address' => 'string|nullable',
+            'city' => 'string|nullable',
+            'zip_code' => 'string|nullable',
+            'piva' => 'string|nullable',
+            'vat' => 'string|nullable',
+            'sdi' => 'string|nullable',
+            'company_name' => 'nullable|string|max:255',
+        ]);
+
+        // Aggiorna le informazioni del contatto con i dati validati
+        $contact->update($validatedData);
+
+        // Restituisci i dati aggiornati del contatto
+        return response()->json(['message' => 'Contact updated successfully', 'contact' => $contact]);
+    }
+
+    public function destroy($id)
+    {
+        $contact = Contact::find($id);
+
+        if (!$contact) {
+            return response()->json(['error' => 'Contatto non trovato'], 404);
+        }
+
+        $contact->delete();
+
+        return response()->json(['message' => 'Contatto eliminato con successo'], 200);
+    }
 }
