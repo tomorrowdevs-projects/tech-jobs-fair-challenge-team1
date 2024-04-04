@@ -1,7 +1,7 @@
 'use client'
 
 // import node module libraries
-import { Row, Col, Card, Form, Button, Image } from 'react-bootstrap';
+import { Row, Col, Card, Form, Button } from 'react-bootstrap';
 import Link from 'next/link';
 
 // import hooks
