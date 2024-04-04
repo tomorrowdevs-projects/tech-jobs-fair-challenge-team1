@@ -1,14 +1,32 @@
 'use client'
 
-// import node module libraries
+import { useCallback } from 'react';
 import { Row, Col, Card, Form, Button } from 'react-bootstrap';
 import Link from 'next/link';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from "@hookform/resolvers/yup"
+import * as yup from "yup"
 
-// import hooks
 import useMounted from 'hooks/useMounted';
 
 const SignIn = () => {
   const hasMounted = useMounted();
+
+  const {
+    register,
+    handleSubmit,    
+    formState: { errors },
+  } = useForm({ 
+    resolver: yupResolver(yup.object({
+      email: yup.string().email().required(),
+      password: yup.string().min(6).required()
+    })) 
+  })
+
+  const onSubmit = useCallback(data => {
+    // TODO: api integration
+    console.log(data)
+  }, [])
   
   return (
     <Row className="align-items-center justify-content-center g-0 min-vh-100">
@@ -25,17 +43,33 @@ const SignIn = () => {
             </div>
             {/* Form */}
             {hasMounted &&
-              <Form>
+              <Form noValidate onSubmit={handleSubmit(onSubmit)}>
                 {/* Email */}
-                <Form.Group className="mb-3" controlId="username">
+                <Form.Group className="mb-3" controlId="email">
                   <Form.Label>Email</Form.Label>
-                  <Form.Control type="email" name="username" placeholder="Enter address here" required />
+                  <Form.Control
+                    type="email"
+                    placeholder="Enter address here"
+                    isInvalid={errors.email}
+                    {...register('email')}
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    {errors.email?.message}
+                  </Form.Control.Feedback>
                 </Form.Group>
 
                 {/* Password */}
                 <Form.Group className="mb-3" controlId="password">
                   <Form.Label>Password</Form.Label>
-                  <Form.Control type="password" name="password" placeholder="**************" required />
+                  <Form.Control
+                    type="password"
+                    placeholder="**************"
+                    isInvalid={errors.password}
+                    {...register('password')}                       
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    {errors.password?.message}
+                  </Form.Control.Feedback>
                 </Form.Group>
                 
                 <div className="d-md-flex flex-column justify-content-center">
