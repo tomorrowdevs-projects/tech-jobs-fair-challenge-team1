@@ -27,7 +27,7 @@ return new class extends Migration
             $table->string('piva')->nullable();
             $table->string('vat')->nullable();
             $table->string('sdi')->nullable();
-            $table->string('company_name');
+            $table->string('company_name')->nullable();
             $table->timestamps();
         });
     }
