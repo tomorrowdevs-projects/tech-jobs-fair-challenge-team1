@@ -64,3 +64,46 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+
+### quick install on manjaro
+
+`sudo pacman -Sy archlinux-keyring`
+
+`sudo pacman-key --populate archlinux`
+
+`sudo pacman -S php-apache php-cgi php-fpm php-gd  php-embed php-intl php-redis php-snmp`
+
+`sudo pacman -S php`
+
+`pamac install composer`
+
+or
+
+`php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"`
+
+`php composer-setup.php`
+
+
+`sudo mv composer.phar /usr/local/bin/composer`
+
+`sudo composer update`
+
+`sudo composer install`
+
+`sudo pacman -S php-sqlite`
+
+`sudo nano /etc/php/php.ini`
+
+``
+;extension=pdo_mysql
+``
+### Creazione ambiente local
+
+`mv .env.example .env`
+
+`php artisan key:generate`
+
+`php artisan migrate` 
+
+`php artisan db:seed --class=DatabaseSeeder`
