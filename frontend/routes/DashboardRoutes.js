@@ -26,13 +26,51 @@ import { v4 as uuid } from 'uuid';
 export const DashboardMenu = [
 	{
 		id: uuid(),
-		title: 'Dashboard',
-		icon: 'home',
+		title: 'MAIN ROUTING',
+		grouptitle: true
+	},
+	{
+		id: uuid(),
+		title: 'Dashboard',		
 		link: '/'
 	},
 	{
 		id: uuid(),
-		title: 'LAYOUTS & PAGES',
+		title: 'Contacts',		
+		link: '/contacts'
+	},
+	{
+		id: uuid(),
+		title: 'Contact Categories',		
+		link: '/contact-categories'
+	},
+	{
+		id: uuid(),
+		title: 'Departments',		
+		link: '/departments'
+	},
+	{
+		id: uuid(),
+		title: 'Users',		
+		link: '/users'
+	},
+	{
+		id: uuid(),
+		title: 'Profile',		
+		link: '/profile'
+	},
+	{
+		id: uuid(),
+		title: 'PROJECT TEMPLATES',
+		grouptitle: true
+	},
+	{ id: uuid(), link: '/authentication/sign-in', title: 'Sign In' },
+	{ id: uuid(), link: '/authentication/sign-up', title: 'Sign Up' },
+	{ id: uuid(), link: '/authentication/forget-password', title: 'Forget Password'},
+	{ id: uuid(), link: '/not-found', title: '404 Error' },
+	{
+		id: uuid(),
+		title: 'PAGE EXAMPLES',
 		grouptitle: true
 	},
 	{
@@ -40,29 +78,11 @@ export const DashboardMenu = [
 		title: 'Pages',
 		icon: 'layers',
 		children: [
-			{ id: uuid(), link: '/pages/profile', name: 'Profile' },
 			{ id: uuid(), link: '/pages/settings', name: 'Settings'},
 			{ id: uuid(), link: '/pages/billing', name: 'Billing' },
-			{ id: uuid(), link: '/pages/pricing', name: 'Pricing'},
-			{ id: uuid(), link: '/not-found', name: '404 Error' }
+			{ id: uuid(), link: '/pages/pricing', name: 'Pricing'}
 		]
-	},	
-	{
-		id: uuid(),
-		title: 'Authentication',
-		icon: 'lock',
-		children: [
-			{ id: uuid(), link: '/authentication/sign-in', name: 'Sign In' },
-			{ id: uuid(), link: '/authentication/sign-up', name: 'Sign Up' },
-			{ id: uuid(), link: '/authentication/forget-password', name: 'Forget Password'}			
-		]
-	},
-	{
-		id: uuid(),
-		title: 'Layouts',
-		icon: 'layout',
-		link: '/layout-vertical'
-	},	
+	},				
 	{
 		id: uuid(),
 		title: 'UI COMPONENTS',
@@ -101,39 +121,6 @@ export const DashboardMenu = [
 	},	
 	{
 		id: uuid(),
-		title: 'Menu Level',
-		icon: 'corner-left-down',
-		children: [
-			{ 
-				id: uuid(), 
-				link: '#', 
-				title: 'Two Level',
-				children: [
-					{ id: uuid(), link: '#', name: 'NavItem 1'},
-					{ id: uuid(), link: '#', name: 'NavItem 2' }
-				]
-			},
-			{ 
-				id: uuid(), 
-				link: '#', 
-				title: 'Three Level',
-				children: [
-					{ 
-						id: uuid(), 
-						link: '#', 
-						title: 'NavItem 1',
-						children: [
-							{ id: uuid(), link: '#', name: 'NavChildItem 1'},
-							{ id: uuid(), link: '#', name: 'NavChildItem 2'}
-						]
-					},
-					{ id: uuid(), link: '#', name: 'NavItem 2' }
-				]
-			}
-		]
-	},	
-	{
-		id: uuid(),
 		title: 'Documentation',
 		grouptitle: true
 	},
@@ -142,18 +129,6 @@ export const DashboardMenu = [
 		title: 'Docs',
 		icon: 'clipboard',
 		link: '/documentation'
-	},
-	{
-		id: uuid(),
-		title: 'Changelog',
-		icon: 'git-pull-request',
-		link: '/changelog'
-	},
-	{
-		id: uuid(),
-		title: 'Download',
-		icon: 'download',
-		link: 'https://codescandy.gumroad.com/l/dashui-nextjs'
 	}
 ];
 
