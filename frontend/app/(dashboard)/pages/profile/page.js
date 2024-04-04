@@ -110,98 +110,114 @@ const Profile = () => {
     // console.log(isValidNumber(data.phoneNumber))
   }, [])
 
+  const onDeleteAccountButtonClick = useCallback(data => {
+    // TODO: api integration
+    alert('Delete account')
+  }, [])
+
   return (
-    <Container className="p-6">      
-      <Row className="align-items-center">
-        <Col xl={12} lg={12} md={12} xs={12}>
-          {/* Bg */}
-          <div className="pt-20 rounded-top" style={{ background: 'url(/images/background/profile-cover.jpg) no-repeat', backgroundSize: 'cover' }}>
-          </div>
-          <div className="bg-white rounded-bottom smooth-shadow-sm ">
-            <div className="d-flex align-items-center justify-content-between pt-4 pb-6 px-4">
-              <div className="d-flex align-items-center">                
-                <div className="lh-1">
-                  <h2 className="mb-0">John Doe</h2>
-                  <p className="mb-0 d-block">john.doe@gmail.com</p>
+    <Container fluid className="p-6">      
+      <Row className="mt-6">
+        <Col xl={{ span: 8, offset: 2 }} lg={{ span: 10, offset: 1 }} md={12} xs={12}>
+          <div className="align-items-center">
+            <div className="pt-20 rounded-top" style={{ background: 'url(/images/background/profile-cover.jpg) no-repeat', backgroundSize: 'cover' }}>
+            </div>
+            <div className="bg-white rounded-bottom smooth-shadow-sm ">
+              <div className="d-flex align-items-center justify-content-between pt-4 pb-6 px-4">
+                <div className="d-flex align-items-center">                
+                  <div className="lh-1">
+                    <h2 className="mb-0">John Doe</h2>
+                    <p className="mb-0 d-block">john.doe@gmail.com</p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+
+          {/* content */}
+          <div className="py-6">
+            <Card>
+              {/* card body */}
+              <Card.Body>
+                <Form noValidate onSubmit={handleSubmit(onSubmit)}>
+                  {/* Firstname */}
+                  <Form.Group className="mb-3" controlId="firstname">
+                    <Form.Label>Firstname</Form.Label>
+                    <Form.Control
+                      type="text"
+                      placeholder="Firstname"        
+                      isInvalid={errors.firstname}                  
+                      {...register('firstname')}             
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      {errors.firstname?.message}
+                    </Form.Control.Feedback>
+                  </Form.Group>
+
+                  {/* lastname */}
+                  <Form.Group className="mb-3" controlId="lastname">
+                    <Form.Label>Lastname</Form.Label>
+                    <Form.Control
+                      type="text"
+                      placeholder="Lastname"        
+                      isInvalid={errors.lastname}
+                      {...register('lastname')}             
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      {errors.lastname?.message}
+                    </Form.Control.Feedback>
+                  </Form.Group>              
+
+                  {/* email */}
+                  <Form.Group className="mb-3" controlId="email">
+                    <Form.Label>Email</Form.Label>
+                    <Form.Control
+                      type="text"
+                      placeholder="Email"        
+                      isInvalid={errors.email}
+                      {...register('email')}             
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      {errors.email?.message}
+                    </Form.Control.Feedback>
+                  </Form.Group>              
+
+                  <Form.Group className="mb-3" controlId="phoneNumber">
+                    <Form.Label>Phone Number</Form.Label>
+                    <InputPhone 
+                      defaultCountry='us'
+                      isInvalid={errors.phoneNumber}                  
+                      value={watch("phoneNumber")}
+                      onChange={data => setValue("phoneNumber", data)}
+                      name="phoneNumber"
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      {errors.phoneNumber?.message}
+                    </Form.Control.Feedback>
+                    <Form.Text id="phoneNumberBlock" muted>
+                      Phone number is not required but is strongly recommended.
+                    </Form.Text>
+                  </Form.Group>
+
+                  <Button variant="primary" type="submit">Save changes</Button>
+                </Form>
+              </Card.Body>
+            </Card>
+
+            <ChangePasswordForm />
+
+            <Card className="mt-6">
+              <Card.Body>
+                <Card.Title as="h4">Delete account</Card.Title>            
+                <div>
+                  <p>Are you sure to delete your account?</p>
+                  <Button variant="danger" onClick={onDeleteAccountButtonClick}>Delete Account</Button>
+                </div>
+              </Card.Body>
+            </Card>
+          </div>
         </Col>
       </Row>
-
-      {/* content */}
-      <div className="py-6">
-        <Card>
-          {/* card body */}
-          <Card.Body>
-            <Form noValidate onSubmit={handleSubmit(onSubmit)}>
-              {/* Firstname */}
-              <Form.Group className="mb-3" controlId="firstname">
-                <Form.Label>Firstname</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Firstname"        
-                  isInvalid={errors.firstname}                  
-                  {...register('firstname')}             
-                />
-                <Form.Control.Feedback type="invalid">
-                  {errors.firstname?.message}
-                </Form.Control.Feedback>
-              </Form.Group>
-
-              {/* lastname */}
-              <Form.Group className="mb-3" controlId="lastname">
-                <Form.Label>Lastname</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Lastname"        
-                  isInvalid={errors.lastname}
-                  {...register('lastname')}             
-                />
-                <Form.Control.Feedback type="invalid">
-                  {errors.lastname?.message}
-                </Form.Control.Feedback>
-              </Form.Group>              
-
-              {/* email */}
-              <Form.Group className="mb-3" controlId="email">
-                <Form.Label>Email</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Email"        
-                  isInvalid={errors.email}
-                  {...register('email')}             
-                />
-                <Form.Control.Feedback type="invalid">
-                  {errors.email?.message}
-                </Form.Control.Feedback>
-              </Form.Group>              
-
-              <Form.Group className="mb-3" controlId="phoneNumber">
-                <Form.Label>Phone Number</Form.Label>
-                <InputPhone 
-                  defaultCountry='us'
-                  isInvalid={errors.phoneNumber}                  
-                  value={watch("phoneNumber")}
-                  onChange={data => setValue("phoneNumber", data)}
-                  name="phoneNumber"
-                />
-                <Form.Control.Feedback type="invalid">
-                  {errors.phoneNumber?.message}
-                </Form.Control.Feedback>
-                <Form.Text id="phoneNumberBlock" muted>
-                  Phone number is not required but is strongly recommended.
-                </Form.Text>
-              </Form.Group>
-
-              <Button variant="primary" type="submit">Edit Profile</Button>
-            </Form>
-          </Card.Body>
-        </Card>
-
-        <ChangePasswordForm />
-      </div>
     </Container>
   )
 }
