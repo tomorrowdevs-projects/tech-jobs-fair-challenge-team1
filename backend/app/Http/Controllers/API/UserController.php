@@ -78,4 +78,17 @@ class UserController extends Controller
         // Restituisci i dati aggiornati dell'utente
         return response()->json(['message' => 'User updated successfully', 'user' => $user]);
     }
+
+    public function destroy($id)
+    {
+        $user = User::find($id);
+
+        if (!$user) {
+            return response()->json(['error' => 'Utente non trovato'], 404);
+        }
+
+        $user->delete();
+
+        return response()->json(['message' => 'Utente eliminato con successo'], 200);
+    }
 }
