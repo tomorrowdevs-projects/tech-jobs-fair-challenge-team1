@@ -1,7 +1,7 @@
 'use client'
 
 // import node module libraries
-import { Row, Col, Card, Form, Button, Image } from 'react-bootstrap';
+import { Row, Col, Card, Form, Button } from 'react-bootstrap';
 import Link from 'next/link';
 
 // import hooks
@@ -17,60 +17,49 @@ const SignUp = () => {
           {/* Card body */}
           <Card.Body className="p-6">
             <div className="mb-4">
-              <Link href="/"><Image src="/images/brand/logo/logo-primary.svg" className="mb-2" alt="" /></Link>
+              <h1>
+                <Link href="/">TechSolutions Inc</Link>
+              </h1>              
               <p className="mb-6">Please enter your user information.</p>
             </div>
             {/* Form */}
             {hasMounted && 
             <Form>
-              {/* Username */}
-              <Form.Group className="mb-3" controlId="username">
-                <Form.Label>Username or email</Form.Label>
-                <Form.Control type="text" name="username" placeholder="User Name" required="" />
+              {/* Firstname */}
+              <Form.Group className="mb-3" controlId="firstname">
+                <Form.Label>Firstname</Form.Label>
+                <Form.Control type="text" name="firstname" placeholder="Firstname" required />
               </Form.Group>
 
-              {/* Email */}
-              <Form.Group className="mb-3" controlId="email">
-                <Form.Label>Email</Form.Label>
-                <Form.Control type="email" name="email" placeholder="Enter address here" required="" />
-              </Form.Group>
+              {/* lastname */}
+              <Form.Group className="mb-3" controlId="lastname">
+                <Form.Label>Lastname</Form.Label>
+                <Form.Control type="text" name="lastname" placeholder="Lastname" required />
+              </Form.Group>              
 
               {/* Password */}
               <Form.Group className="mb-3" controlId="password">
                 <Form.Label>Password</Form.Label>
-                <Form.Control type="password" name="password" placeholder="**************" required="" />
+                <Form.Control type="password" name="password" placeholder="**************" required />
               </Form.Group>
 
               {/* Confirm Password */}
-              <Form.Group className="mb-3" controlId="confirm-password">
+              <Form.Group className="mb-3" controlId="confirmPassword">
                 <Form.Label>Confirm Password</Form.Label>
-                <Form.Control type="password" name="confirm-password" placeholder="**************" required="" />
+                <Form.Control type="password" name="confirmPassword" placeholder="**************" required />
               </Form.Group>
 
-              {/* Checkbox */}
-              <div className="mb-3">
-                <Form.Check type="checkbox" id="check-api-checkbox">
-                  <Form.Check.Input type="checkbox" />
-                  <Form.Check.Label>
-                    I agree to the <Link href="#"> Terms of Service </Link> and <Link href="#"> Privacy Policy.</Link>
-                  </Form.Check.Label>
-                </Form.Check>
-              </div>
+              <Form.Group className="mb-3" controlId="phoneNumber">
+                <Form.Label>Phone Number</Form.Label>
+                <Form.Control type="text" name="phoneNumber" placeholder="Phone number" />
+                <Form.Text id="phoneNumberBlock" muted>
+                  Phone number is not required but is strongly recommended.
+                </Form.Text>
+              </Form.Group>
 
-              <div>
-                {/* Button */}
-                <div className="d-grid">
-                  <Button variant="primary" type="submit">Create Free Account</Button>
-                </div>
-                <div className="d-md-flex justify-content-between mt-4">
-                  <div className="mb-2 mb-md-0">
-                    <Link href="/authentication/sign-in" className="fs-5">Already member? Login </Link>
-                  </div>
-                  <div>
-                    <Link href="/authentication/forget-password" className="text-inherit fs-5">Forgot your password?</Link>
-                  </div>
-                </div>
-              </div>
+              <div className="d-grid">
+                <Button variant="primary" type="submit">Complete registration</Button>
+              </div>               
             </Form>
             }
           </Card.Body>
