@@ -8,7 +8,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { isValidNumber } from 'libphonenumber-js'
 
-import InputPhone from '../../../../components/InputPhone';
+import InputPhone from '../../../components/InputPhone';
 
 const ChangePasswordForm = () => {
   const {
