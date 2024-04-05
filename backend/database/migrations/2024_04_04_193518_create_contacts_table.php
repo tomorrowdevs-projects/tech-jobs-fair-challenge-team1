@@ -17,7 +17,8 @@ return new class extends Migration
             $table->string('surname');
             $table->string('email')->unique();
             $table->string('phone_number');
-            $table->foreignId('category_id')->references('id')->on('categories');
+            $table->unsignedBigInteger('category_id')->nullable();
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('set null')->onUpdate('cascade');
             $table->string('socials')->nullable();
             $table->string('country')->nullable();
             $table->string('region')->nullable();
@@ -37,6 +38,8 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('contacts');
+        Schema::enableForeignKeyConstraints();
     }
 };
