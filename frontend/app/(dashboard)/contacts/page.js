@@ -2,7 +2,7 @@
 // import node module libraries
 import React, {Fragment, useState} from "react";
 import Link from 'next/link';
-import {Container, Col, Row, Table, Card, Pagination} from 'react-bootstrap';
+import {Container, Table, } from 'react-bootstrap';
 
 import { PageHeading } from 'widgets'
 import ContactFilter from "../components/contact-filter/page";
