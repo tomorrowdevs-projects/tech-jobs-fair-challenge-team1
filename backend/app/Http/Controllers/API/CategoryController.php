@@ -39,7 +39,7 @@ class CategoryController extends Controller
 
         $new_category = Category::create($data);
 
-        return CategoryResource::class($new_category);
+        return CategoryResource::make($new_category);
     }
 
     /**
