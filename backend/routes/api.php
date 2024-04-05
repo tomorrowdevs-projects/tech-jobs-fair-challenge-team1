@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\CategoriesController;
 use App\Http\Controllers\API\ContactController;
+use App\Http\Controllers\API\DepartmentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\UserController;
@@ -51,6 +52,10 @@ Route::delete('/contacts/{id}', [ContactController::class, 'destroy']);
 Route::get('/category/all', [CategoriesController::class, 'all']);
 Route::post('/category', [CategoriesController::class, 'create']);
 Route::delete('/category/{id}', [CategoriesController::class, 'delete']);
+
+Route::get('/department/all', [DepartmentController::class, 'all']);
+Route::post('/department', [DepartmentController::class, 'create']);
+Route::delete('/department/{id}', [DepartmentController::class, 'delete']);
 
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout',  [LoginController::class, 'logout']);
