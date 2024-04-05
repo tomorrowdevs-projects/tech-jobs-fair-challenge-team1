@@ -162,12 +162,9 @@ const [searchQuery,setSearchQuery] = useState('')
             }));
     };
 const handleSearchQueryChange = (value)=>{
-
         setSearchQuery(value)
-
 }
     useEffect(() => {
-        console.log(searchQuery,!searchQuery)
         if (!searchQuery) {
             // Reset contacts to initialContacts
             setContacts(initialContacts);
@@ -195,8 +192,8 @@ const handleSearchQueryChange = (value)=>{
     },[ searchQuery]);
     function getSimilarity(str1, str2) {
         // Convert strings to sets of characters
-        const set1 = new Set(str1.toLowerCase());
-        const set2 = new Set(str2.toLowerCase());
+        const set1 = new Set([...str1.toLowerCase()]);
+        const set2 = new Set([...str2.toLowerCase()]);
 
         // Intersection of characters
         const intersection = new Set([...set1].filter(char => set2.has(char)));
