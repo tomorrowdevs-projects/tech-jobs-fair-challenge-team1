@@ -1091,6 +1091,346 @@
                 ]
             }
         },
+        "/api/departments": {
+            "get": {
+                "tags": [
+                    "Departments"
+                ],
+                "summary": "Restituisce una lista di dipartimenti",
+                "operationId": "eb360501bfca87b54246f2da467dd790",
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": "1"
+                                                    },
+                                                    "name": {
+                                                        "description": "Il nome del dipartimento",
+                                                        "type": "string",
+                                                        "example": "IT"
+                                                    },
+                                                    "created_at": {
+                                                        "description": "Data di creazione",
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2024-04-04T20:35:29.000000Z"
+                                                    },
+                                                    "updated_at": {
+                                                        "description": "Data di aggiornamento",
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2024-04-04T20:44:52.000000Z"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Departments"
+                ],
+                "summary": "Crea un nuovo dipartimento",
+                "operationId": "957483d30c55c17ed4c6ae8dc837df47",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "description": "Il nome del dipartimento",
+                                        "type": "string",
+                                        "example": "IT Designer Business Developers"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Creato con successo",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": "1"
+                                                },
+                                                "name": {
+                                                    "description": "Il nome del dipartimento",
+                                                    "type": "string",
+                                                    "example": "IT Designer Business Developers"
+                                                },
+                                                "created_at": {
+                                                    "description": "Data di creazione",
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-04-04T20:35:29.000000Z"
+                                                },
+                                                "updated_at": {
+                                                    "description": "Data di aggiornamento",
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-04-04T20:44:52.000000Z"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Richiesta non valida"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/departments/{department}": {
+            "get": {
+                "tags": [
+                    "Departments"
+                ],
+                "summary": " Restituisce un dipartimento specificato dall'ID",
+                "operationId": "3a9038e5a48a091f4d74b8176b26ceb4",
+                "parameters": [
+                    {
+                        "name": "department",
+                        "in": "path",
+                        "description": "Dipartment ID",
+                        "required": true,
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": "1"
+                                                },
+                                                "name": {
+                                                    "description": "Il nome del dipartimento",
+                                                    "type": "string",
+                                                    "example": "IT"
+                                                },
+                                                "created_at": {
+                                                    "description": "Data di creazione",
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-04-04T20:35:29.000000Z"
+                                                },
+                                                "updated_at": {
+                                                    "description": "Data di aggiornamento",
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-04-04T20:44:52.000000Z"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Dipartimento non trovato"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Departments"
+                ],
+                "summary": "Aggiorna un dipartimento esistente",
+                "operationId": "d119bc7bf9a2d3ce0ace9b107f61f7c3",
+                "parameters": [
+                    {
+                        "name": "department",
+                        "in": "path",
+                        "description": "Dipartment ID",
+                        "required": true,
+                        "example": 1
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "description": "Il nome del dipartimento",
+                                        "type": "string",
+                                        "example": "IT Designer Business Developers"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Modificato con successo",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": "1"
+                                                },
+                                                "name": {
+                                                    "description": "Il nome del dipartimento",
+                                                    "type": "string",
+                                                    "example": "IT Designer Business Developers"
+                                                },
+                                                "created_at": {
+                                                    "description": "Data di creazione",
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-04-04T20:35:29.000000Z"
+                                                },
+                                                "updated_at": {
+                                                    "description": "Data di aggiornamento",
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-04-04T20:44:52.000000Z"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Richiesta non valida"
+                    },
+                    "404": {
+                        "description": "Dipartimento non trovata"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Departments"
+                ],
+                "summary": "Elimina un dipartimento esistente",
+                "operationId": "ffe5ac57e22a08d7476681e8cfd1bbfc",
+                "parameters": [
+                    {
+                        "name": "department",
+                        "in": "path",
+                        "description": "Dipartment ID",
+                        "required": true,
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Dipartimento eliminato con successo"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Dipartimento non trovato",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Dipartimento non trovato"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/users": {
             "get": {
                 "tags": [
