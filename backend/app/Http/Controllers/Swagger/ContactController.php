@@ -200,14 +200,14 @@ use App\Http\Controllers\Controller;
  *          )
  *      ),
  * 
-  *      @OA\Response(
+ *      @OA\Response(
  *          response=400,
  *          description="Richiesta non valida",
  *      ),
  * 
  *      @OA\Response(
  *          response=404,
- *          description="Categoria non trovata",
+ *          description="Contatto non trovato",
  *      ),
  * ),
  * 
@@ -234,7 +234,7 @@ use App\Http\Controllers\Controller;
  * 
  *      @OA\Response(
  *          response=404,
- *          description="Categoria non trovata",
+ *          description="Contatto non trovato",
  *          @OA\JsonContent(
  *              @OA\Property(property="message", type="string", example="Contatto non trovato")
  *          )
