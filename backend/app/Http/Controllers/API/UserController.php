@@ -3,92 +3,83 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\User\StoreRequest;
+use App\Http\Requests\User\UpdateRequest;
+use App\Http\Resources\User\UserResource;
+use App\Models\User;
 use Illuminate\Http\Request;
-use App\Models\User; // Assicurati di importare il modello User
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Auth;
-use Tymon\JWTAuth\Facades\JWTAuth;
 
 class UserController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     */
     public function index()
     {
         // Recupera tutti gli utenti dal database
         $users = User::all();
 
-        // Restituisci gli utenti come risposta JSON
-        return response()->json(['users' => $users]);
+        return UserResource::collection($users);
     }
 
-    public function show($id)
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
     {
-        $user = User::find($id);
-
-        if (!$user) {
-            return response()->json(['error' => 'User not found'], 404);
-        }
-
-        return response()->json(['user' => $user], 200);
+        //
     }
 
-    public function store(Request $request)
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(StoreRequest $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'surname' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8',
-            'role' => 'required|string|max:255',
-        ]);
+        $data = $request->validated();
 
-        $user = User::create([
-            'name' => $request->name,
-            'surname' => $request->surname,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'role' => $request->role,
-        ]);
+        $new_user = User::create($data);
 
-        return response()->json(['user' => $user], 201);
+        return UserResource::make($new_user);
     }
 
-    public function update(Request $request, $id)
+    /**
+     * Display the specified resource.
+     */
+    public function show(User $user)
     {
+        return UserResource::make($user);
+    }
 
-        // Trova l'utente da aggiornare
-        $user = User::find($id);
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(User $user)
+    {
+        //
+    }
 
-        // Se l'utente non esiste, restituisci un messaggio di errore
-        if (!$user) {
-            return response()->json(['error' => 'User not found'], 404);
-        }
-
-        // Validazione dei dati inviati
-        $validatedData = $request->validate([
-            'name' => 'string|max:255',
-            'surname' => 'string|max:255',
-            'email' => 'email|max:255|unique:users,email,' . $id,
-            'password' => 'string|min:8',
-            'role' => 'string|max:255',
-        ]);
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(UpdateRequest $request, User $user)
+    {
+        $data = $request->validated();
 
         // Aggiorna le informazioni dell'utente con i dati validati
-        $user->update($validatedData);
+        $user->update($data);
 
-        // Restituisci i dati aggiornati dell'utente
-        return response()->json(['message' => 'User updated successfully', 'user' => $user]);
+        return UserResource::make($user);
     }
 
-    public function destroy($id)
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(User $user)
     {
-        $user = User::find($id);
-
-        if (!$user) {
-            return response()->json(['error' => 'Utente non trovato'], 404);
-        }
-
         $user->delete();
 
-        return response()->json(['message' => 'Utente eliminato con successo'], 200);
+        return response()->json([
+            'message' => 'Utente eliminato con successo'
+        ], 200);
     }
 }

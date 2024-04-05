@@ -1,0 +1,417 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "My Doc API",
+        "description": "Descrizione dell'API",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/": {},
+        "/api/users": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Restituisce una lista di utenti",
+                "operationId": "2de50d9685640f415a9c02001843b92c",
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": "1"
+                                                    },
+                                                    "name": {
+                                                        "description": "Il nome dell'utente",
+                                                        "type": "string",
+                                                        "example": "Mario"
+                                                    },
+                                                    "surname": {
+                                                        "description": "Il cognome dell'utente",
+                                                        "type": "string",
+                                                        "example": "Rossi"
+                                                    },
+                                                    "email": {
+                                                        "description": "La email dell'utente",
+                                                        "type": "string",
+                                                        "format": "email",
+                                                        "example": "mycompany@gmail.com"
+                                                    },
+                                                    "password": {
+                                                        "description": "La password dell'utente",
+                                                        "type": "string",
+                                                        "example": "password"
+                                                    },
+                                                    "phoneNumber": {
+                                                        "description": "Il numero di telefono dell'utente",
+                                                        "type": "string",
+                                                        "example": "+390001112233"
+                                                    },
+                                                    "role": {
+                                                        "description": "Il ruolo dell'utente",
+                                                        "type": "string",
+                                                        "example": "basic"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Crea un nuovo utente",
+                "operationId": "1c9735f7c60172f0d942b218196784ec",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "surname",
+                                    "email",
+                                    "password",
+                                    "role"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "description": "Il nome dell'utente",
+                                        "type": "string",
+                                        "example": "Mario"
+                                    },
+                                    "surname": {
+                                        "description": "Il cognome dell'utente",
+                                        "type": "string",
+                                        "example": "Rossi"
+                                    },
+                                    "email": {
+                                        "description": "La email dell'utente",
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "mycompany@gmail.com"
+                                    },
+                                    "password": {
+                                        "description": "La password dell'utente",
+                                        "type": "string",
+                                        "example": "password"
+                                    },
+                                    "phoneNumber": {
+                                        "description": "Il numero di telefono dell'utente",
+                                        "type": "string",
+                                        "example": "+390001112233"
+                                    },
+                                    "role": {
+                                        "description": "Il ruolo dell'utente",
+                                        "type": "string",
+                                        "example": "basic"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Creato con successo",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": "1"
+                                                },
+                                                "name": {
+                                                    "description": "Il nome dell'utente",
+                                                    "type": "string",
+                                                    "example": "Mario"
+                                                },
+                                                "surname": {
+                                                    "description": "Il cognome dell'utente",
+                                                    "type": "string",
+                                                    "example": "Rossi"
+                                                },
+                                                "email": {
+                                                    "description": "La email dell'utente",
+                                                    "type": "string",
+                                                    "format": "email",
+                                                    "example": "mycompany@gmail.com"
+                                                },
+                                                "password": {
+                                                    "description": "La password dell'utente",
+                                                    "type": "string",
+                                                    "example": "password"
+                                                },
+                                                "phoneNumber": {
+                                                    "description": "Il numero di telefono dell'utente",
+                                                    "type": "string",
+                                                    "example": "+390001112233"
+                                                },
+                                                "role": {
+                                                    "description": "Il ruolo dell'utente",
+                                                    "type": "string",
+                                                    "example": "basic"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Richiesta non valida"
+                    }
+                }
+            }
+        },
+        "/api/users/{user}": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": " Restituisce un utente specificato dall'ID",
+                "operationId": "e5b4450b636cbf07e95dd83bd288f3ff",
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "path",
+                        "description": "User ID",
+                        "required": true,
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": "1"
+                                                },
+                                                "name": {
+                                                    "description": "Il nome dell'utente",
+                                                    "type": "string",
+                                                    "example": "Mario"
+                                                },
+                                                "surname": {
+                                                    "description": "Il cognome dell'utente",
+                                                    "type": "string",
+                                                    "example": "Rossi"
+                                                },
+                                                "email": {
+                                                    "description": "La email dell'utente",
+                                                    "type": "string",
+                                                    "format": "email",
+                                                    "example": "mycompany@gmail.com"
+                                                },
+                                                "password": {
+                                                    "description": "La password dell'utente",
+                                                    "type": "string",
+                                                    "example": "password"
+                                                },
+                                                "phoneNumber": {
+                                                    "description": "Il numero di telefono dell'utente",
+                                                    "type": "string",
+                                                    "example": "+390001112233"
+                                                },
+                                                "role": {
+                                                    "description": "Il ruolo dell'utente",
+                                                    "type": "string",
+                                                    "example": "basic"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Aggiorna un utente esistente",
+                "operationId": "5e613442a8e289a7d5d92a7eacbb1fa9",
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "path",
+                        "description": "User ID",
+                        "required": true,
+                        "example": 1
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "surname",
+                                    "email",
+                                    "password",
+                                    "role"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "description": "Il nome dell'utente",
+                                        "type": "string",
+                                        "example": "Mario"
+                                    },
+                                    "surname": {
+                                        "description": "Il cognome dell'utente",
+                                        "type": "string",
+                                        "example": "Rossi"
+                                    },
+                                    "email": {
+                                        "description": "La email dell'utente",
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "mycompany@gmail.com"
+                                    },
+                                    "password": {
+                                        "description": "La password dell'utente",
+                                        "type": "string",
+                                        "example": "password"
+                                    },
+                                    "phoneNumber": {
+                                        "description": "Il numero di telefono dell'utente",
+                                        "type": "string",
+                                        "example": "+390001112233"
+                                    },
+                                    "role": {
+                                        "description": "Il ruolo dell'utente",
+                                        "type": "string",
+                                        "example": "super-admin"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": "1"
+                                                },
+                                                "name": {
+                                                    "description": "Il nome dell'utente",
+                                                    "type": "string",
+                                                    "example": "Mario"
+                                                },
+                                                "surname": {
+                                                    "description": "Il cognome dell'utente",
+                                                    "type": "string",
+                                                    "example": "Rossi"
+                                                },
+                                                "email": {
+                                                    "description": "La email dell'utente",
+                                                    "type": "string",
+                                                    "format": "email",
+                                                    "example": "mycompany@gmail.com"
+                                                },
+                                                "password": {
+                                                    "description": "La password dell'utente",
+                                                    "type": "string",
+                                                    "example": "password"
+                                                },
+                                                "phoneNumber": {
+                                                    "description": "Il numero di telefono dell'utente",
+                                                    "type": "string",
+                                                    "example": "+390001112233"
+                                                },
+                                                "role": {
+                                                    "description": "Il ruolo dell'utente",
+                                                    "type": "string",
+                                                    "example": "basic"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Elimina un utente esistente",
+                "operationId": "d587da7ff95d5b545301f276888c97d7",
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "path",
+                        "description": "User ID",
+                        "required": true,
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Utente eliminato con successo"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
