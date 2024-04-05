@@ -7,6 +7,346 @@
     },
     "paths": {
         "/api/": {},
+        "/api/categories": {
+            "get": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Restituisce una lista di categorie",
+                "operationId": "fda83319ea87b70fdda27e40a948692b",
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": "1"
+                                                    },
+                                                    "name": {
+                                                        "description": "Il nome della categoria",
+                                                        "type": "string",
+                                                        "example": "Customer"
+                                                    },
+                                                    "created_at": {
+                                                        "description": "Data di creazione",
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2024-04-04T20:35:29.000000Z"
+                                                    },
+                                                    "updated_at": {
+                                                        "description": "Data di aggiornamento",
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2024-04-04T20:44:52.000000Z"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Crea una nuova categoria",
+                "operationId": "5befb384353e20ca29b5464c59701011",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "description": "Il nome della categoria",
+                                        "type": "string",
+                                        "example": "Customer Employers Partners"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Creato con successo",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": "1"
+                                                },
+                                                "name": {
+                                                    "description": "Il nome della categoria",
+                                                    "type": "string",
+                                                    "example": "Customer Employers Partners"
+                                                },
+                                                "created_at": {
+                                                    "description": "Data di creazione",
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-04-04T20:35:29.000000Z"
+                                                },
+                                                "updated_at": {
+                                                    "description": "Data di aggiornamento",
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-04-04T20:44:52.000000Z"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Richiesta non valida"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/categories/{category}": {
+            "get": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": " Restituisce una categoria specificato dall'ID",
+                "operationId": "d119cf95b886ef315d9883e0161bc2ee",
+                "parameters": [
+                    {
+                        "name": "category",
+                        "in": "path",
+                        "description": "Category ID",
+                        "required": true,
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": "1"
+                                                },
+                                                "name": {
+                                                    "description": "Il nome della categoria",
+                                                    "type": "string",
+                                                    "example": "Customer"
+                                                },
+                                                "created_at": {
+                                                    "description": "Data di creazione",
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-04-04T20:35:29.000000Z"
+                                                },
+                                                "updated_at": {
+                                                    "description": "Data di aggiornamento",
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-04-04T20:44:52.000000Z"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Categoria non trovato"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Aggiorna una categoria esistente",
+                "operationId": "b32862b5571abe03cf0b1fced59832cf",
+                "parameters": [
+                    {
+                        "name": "category",
+                        "in": "path",
+                        "description": "Category ID",
+                        "required": true,
+                        "example": 1
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "description": "Il nome della categoria",
+                                        "type": "string",
+                                        "example": "Customer Employers Partners"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Modificato con successo",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": "1"
+                                                },
+                                                "name": {
+                                                    "description": "Il nome della categoria",
+                                                    "type": "string",
+                                                    "example": "Customer Employers Partners"
+                                                },
+                                                "created_at": {
+                                                    "description": "Data di creazione",
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-04-04T20:35:29.000000Z"
+                                                },
+                                                "updated_at": {
+                                                    "description": "Data di aggiornamento",
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-04-04T20:44:52.000000Z"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Richiesta non valida"
+                    },
+                    "404": {
+                        "description": "Categoria non trovata"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Elimina una categoria esistente",
+                "operationId": "aa760339c7ddb217329ab434247bedec",
+                "parameters": [
+                    {
+                        "name": "category",
+                        "in": "path",
+                        "description": "Category ID",
+                        "required": true,
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Categoria eliminata con successo"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Categoria non trovata",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Contatto non trovato"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/contacts": {
             "get": {
                 "tags": [
@@ -686,7 +1026,7 @@
                         "description": "Richiesta non valida"
                     },
                     "404": {
-                        "description": "Categoria non trovata"
+                        "description": "Contatto non trovato"
                     }
                 },
                 "security": [
@@ -728,7 +1068,7 @@
                         }
                     },
                     "404": {
-                        "description": "Categoria non trovata",
+                        "description": "Contatto non trovato",
                         "content": {
                             "application/json": {
                                 "schema": {
