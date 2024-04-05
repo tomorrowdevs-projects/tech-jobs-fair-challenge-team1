@@ -11,7 +11,7 @@ import { isValidNumber } from 'libphonenumber-js'
 
 import InputPhone from 'components/InputPhone';
 
-const ContactsEditPage = ({ params }) => {
+const ContactsViewPage = ({ params }) => {
     const categoriesOptions = useMemo(() => {
         return [
             { value: 'employer', label: 'Employer' },
@@ -89,276 +89,91 @@ const ContactsEditPage = ({ params }) => {
                         <Breadcrumb.Item active>John Doe</Breadcrumb.Item>
                     </Breadcrumb>
 
-                    <hr/>
+                    <div className="align-items-center">
+                        <div className="pt-20 rounded-top" style={{ background: 'url(/images/background/profile-cover.jpg) no-repeat', backgroundSize: 'cover' }}>
+                        </div>
+                        <div className="bg-white rounded-bottom smooth-shadow-sm ">
+                        <div className="d-flex align-items-center justify-content-between pt-4 pb-6 px-4">
+                            <div className="lh-1">
+                                <h2 className="mb-0">John Doe</h2>
+                                <p className="mb-0 d-block">john.doe@gmail.com</p>
+                            </div>
+                            <div>
+                                <Link className="btn btn-primary" href={`/contacts/${params.slug}/edit`}>
+                                    <i className="fe fe-edit"></i> Edit
+                                </Link>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
 
                     {/* content */}
                     <div className="py-6">
                         <Card>
                             {/* card body */}
                             <Card.Body>
-                                <Form noValidate onSubmit={handleSubmit(onSubmit)}>
-                                {/* Category */}
-                                <Form.Group className="mb-3">
-                                    <Form.Label htmlFor="category">Contacts Category</Form.Label>                                                                        
-                                    <Form.Select
-                                        id="category"
-                                        isInvalid={errors.category}
-                                        {...register('category')}
-                                    >
-                                        <option value="" className="text-muted">Select a category</option>
-                                        {categoriesOptions.map((item, index) => {
-                                            return (
-                                                <option key={index} value={item.value} className="text-dark">
-                                                    {item.label}
-                                                </option>
-                                            );
-                                        })}
-                                    </Form.Select>
-                                    <Form.Control.Feedback type="invalid">
-                                        {errors.category?.message}
-                                    </Form.Control.Feedback>
-                                </Form.Group>
-
-                                {/* Department */}
-                                <Form.Group className="mb-3">
-                                    <Form.Label htmlFor="department">Department</Form.Label>                                                                        
-                                    <Form.Select
-                                        id="department"
-                                        isInvalid={errors.department}
-                                        {...register('department')}
-                                    >
-                                        <option value="" className="text-muted">Select a department</option>
-                                        {departmentsOptions.map((item, index) => {
-                                            return (
-                                                <option key={index} value={item.value} className="text-dark">
-                                                    {item.label}
-                                                </option>
-                                            );
-                                        })}
-                                    </Form.Select>
-                                    <Form.Control.Feedback type="invalid">
-                                        {errors.department?.message}
-                                    </Form.Control.Feedback>
-                                </Form.Group>
-
-                                {/* Firstname */}
-                                <Form.Group className="mb-3" controlId="firstname">
-                                    <Form.Label>Firstname</Form.Label>
-                                    <Form.Control
-                                    type="text"
-                                    placeholder="Firstname"        
-                                    isInvalid={errors.firstname}                  
-                                    {...register('firstname')}             
-                                    />
-                                    <Form.Control.Feedback type="invalid">
-                                    {errors.firstname?.message}
-                                    </Form.Control.Feedback>
-                                </Form.Group>
-
-                                {/* lastname */}
-                                <Form.Group className="mb-3" controlId="lastname">
-                                    <Form.Label>Lastname</Form.Label>
-                                    <Form.Control
-                                    type="text"
-                                    placeholder="Lastname"        
-                                    isInvalid={errors.lastname}
-                                    {...register('lastname')}             
-                                    />
-                                    <Form.Control.Feedback type="invalid">
-                                    {errors.lastname?.message}
-                                    </Form.Control.Feedback>
-                                </Form.Group>              
-
-                                {/* email */}
-                                <Form.Group className="mb-3" controlId="email">
-                                    <Form.Label>Email</Form.Label>
-                                    <Form.Control
-                                    type="text"
-                                    placeholder="Email"        
-                                    isInvalid={errors.email}
-                                    {...register('email')}             
-                                    />
-                                    <Form.Control.Feedback type="invalid">
-                                    {errors.email?.message}
-                                    </Form.Control.Feedback>
-                                </Form.Group>
-
-                                {/* country */}
-                                <Form.Group className="mb-3" controlId="country">
-                                    <Form.Label>Country</Form.Label>
-                                    <Form.Control
-                                    type="text"
-                                    placeholder="Country"        
-                                    isInvalid={errors.country}
-                                    {...register('country')}             
-                                    />
-                                    <Form.Control.Feedback type="invalid">
-                                    {errors.country?.message}
-                                    </Form.Control.Feedback>
-                                </Form.Group>
-
-                                {/* region */}
-                                <Form.Group className="mb-3" controlId="region">
-                                    <Form.Label>Region</Form.Label>
-                                    <Form.Control
-                                    type="text"
-                                    placeholder="region"        
-                                    isInvalid={errors.region}
-                                    {...register('region')}             
-                                    />
-                                    <Form.Control.Feedback type="invalid">
-                                    {errors.region?.message}
-                                    </Form.Control.Feedback>
-                                </Form.Group>
-
-                                {/* city */}
-                                <Form.Group className="mb-3" controlId="city">
-                                    <Form.Label>City</Form.Label>
-                                    <Form.Control
-                                    type="text"
-                                    placeholder="city"        
-                                    isInvalid={errors.city}
-                                    {...register('city')}             
-                                    />
-                                    <Form.Control.Feedback type="invalid">
-                                    {errors.city?.message}
-                                    </Form.Control.Feedback>
-                                </Form.Group>
-
-                                {/* address */}
-                                <Form.Group className="mb-3" controlId="address">
-                                    <Form.Label>Address</Form.Label>
-                                    <Form.Control
-                                    type="text"
-                                    placeholder="Address"        
-                                    isInvalid={errors.address}
-                                    {...register('address')}             
-                                    />
-                                    <Form.Control.Feedback type="invalid">
-                                    {errors.address?.message}
-                                    </Form.Control.Feedback>
-                                </Form.Group>
-
-                                {/* zipCode */}
-                                <Form.Group className="mb-3" controlId="zipCode">
-                                    <Form.Label>Zip Code</Form.Label>
-                                    <Form.Control
-                                    type="text"
-                                    placeholder="Zip Code"        
-                                    isInvalid={errors.zipCode}
-                                    {...register('zipCode')}             
-                                    />
-                                    <Form.Control.Feedback type="invalid">
-                                    {errors.zipCode?.message}
-                                    </Form.Control.Feedback>
-                                </Form.Group>
-
-                                {/* phoneNumber */}
-                                <Form.Group className="mb-3" controlId="phoneNumber">
-                                    <Form.Label>Phone Number</Form.Label>
-                                    <InputPhone 
-                                    defaultCountry='us'
-                                    isInvalid={errors.phoneNumber}                  
-                                    value={watch("phoneNumber")}
-                                    onChange={data => setValue("phoneNumber", data)}
-                                    name="phoneNumber"
-                                    />
-                                    <Form.Control.Feedback type="invalid">
-                                    {errors.phoneNumber?.message}
-                                    </Form.Control.Feedback>
-                                    <Form.Text id="phoneNumberBlock" muted>
-                                    Phone number is not required but is strongly recommended.
-                                    </Form.Text>
-                                </Form.Group>
-
-                                {/* socials */}
-                                <Form.Group className="mb-3" controlId="socials">
-                                    <Form.Label>Socials links</Form.Label>
-                                    <Form.Control
-                                        type="text"
-                                        placeholder="Social links"        
-                                        isInvalid={errors.socials}
-                                        {...register('socials')}             
-                                    />
-                                    <Form.Control.Feedback type="invalid">
-                                        {errors.socials?.message}
-                                    </Form.Control.Feedback>
-                                    <Form.Text id="phoneNumberBlock" muted>
-                                    Social links must be separated by comma ";"
-                                    </Form.Text>
-                                </Form.Group>
-
-                                {/* Company name */}
-                                <Form.Group className="mb-3" controlId="companyName">
-                                    <Form.Label>Company name</Form.Label>
-                                    <Form.Control
-                                    type="text"
-                                    placeholder="Company name"        
-                                    isInvalid={errors.companyName}                  
-                                    {...register('companyName')}             
-                                    />
-                                    <Form.Control.Feedback type="invalid">
-                                    {errors.companyName?.message}
-                                    </Form.Control.Feedback>
-                                </Form.Group>
-
-                                {/* VAT */}
-                                <Form.Group className="mb-3" controlId="vat">
-                                    <Form.Label>VAT</Form.Label>
-                                    <Form.Control
-                                    type="text"
-                                    placeholder="VAT"        
-                                    isInvalid={errors.companyName}                  
-                                    {...register('vat')}             
-                                    />
-                                    <Form.Control.Feedback type="invalid">
-                                    {errors.vat?.message}
-                                    </Form.Control.Feedback>
-                                </Form.Group>
-
-                                {/* SDI */}
-                                <Form.Group className="mb-3" controlId="sdi">
-                                    <Form.Label>SDI</Form.Label>
-                                    <Form.Control
-                                    type="text"
-                                    placeholder="SDI"        
-                                    isInvalid={errors.sdi}                  
-                                    {...register('sdi')}             
-                                    />
-                                    <Form.Control.Feedback type="invalid">
-                                    {errors.sdi?.message}
-                                    </Form.Control.Feedback>
-                                </Form.Group>
-
-                                <Button variant="primary" type="submit">Save changes</Button>
-                                </Form>
+                                <Card.Title as="h4">Informations</Card.Title>
+                                
+                                <Row>
+                                    <Col xs={6} className="mb-5">
+                                        <h6 className="text-uppercase fs-5 ls-2">Category</h6>
+                                        <p className="mb-0">Category name</p>
+                                    </Col>
+                                    <Col xs={6} className="mb-5">
+                                        <h6 className="text-uppercase fs-5 ls-2">Department</h6>
+                                        <p className="mb-0">Department name</p>
+                                    </Col>
+                                    <Col xs={6} className="mb-5">
+                                        <h6 className="text-uppercase fs-5 ls-2">Firstname</h6>
+                                        <p className="mb-0">John</p>
+                                    </Col>
+                                    <Col xs={6} className="mb-5">
+                                        <h6 className="text-uppercase fs-5 ls-2">Lastname</h6>
+                                        <p className="mb-0">Doe</p>
+                                    </Col>
+                                    <Col xs={12} className="mb-5">
+                                        <h6 className="text-uppercase fs-5 ls-2">Email</h6>
+                                        <p className="mb-0">john.doe@gmail.com</p>
+                                    </Col>
+                                    <Col xs={6} className="mb-5">
+                                        <h6 className="text-uppercase fs-5 ls-2">Country</h6>
+                                        <p className="mb-0">Country</p>
+                                    </Col>
+                                    <Col xs={6} className="mb-5">
+                                        <h6 className="text-uppercase fs-5 ls-2">Region</h6>
+                                        <p className="mb-0">Region</p>
+                                    </Col>
+                                    <Col xs={6} className="mb-5">
+                                        <h6 className="text-uppercase fs-5 ls-2">City</h6>
+                                        <p className="mb-0">City</p>
+                                    </Col>
+                                    <Col xs={6} className="mb-5">
+                                        <h6 className="text-uppercase fs-5 ls-2">Address</h6>
+                                        <p className="mb-0">Address</p>
+                                    </Col>
+                                    <Col xs={6} className="mb-5">
+                                        <h6 className="text-uppercase fs-5 ls-2">Phone number</h6>
+                                        <p className="mb-0">+390304568798</p>
+                                    </Col>
+                                    <Col xs={6} className="mb-5">
+                                        <h6 className="text-uppercase fs-5 ls-2">Socials</h6>
+                                        <p className="mb-0">Social</p>
+                                    </Col>
+                                    <Col xs={6} className="mb-5">
+                                        <h6 className="text-uppercase fs-5 ls-2">Company name</h6>
+                                        <p className="mb-0">Company name</p>
+                                    </Col>
+                                    <Col xs={6} className="mb-5">
+                                        <h6 className="text-uppercase fs-5 ls-2">VAT</h6>
+                                        <p className="mb-0">VAT</p>
+                                    </Col>
+                                    <Col xs={6} className="mb-5">
+                                        <h6 className="text-uppercase fs-5 ls-2">SDI</h6>
+                                        <p className="mb-0">SDI</p>
+                                    </Col>
+                                </Row>
                             </Card.Body>
                         </Card>
-
-                        <Card className="mt-6">
-                            <Card.Body>
-                                <Card.Title as="h4">Delete contact</Card.Title>            
-                                <div>
-                                <p>Are you sure to delete this contact?</p>
-                                <Button variant="danger" onClick={() => setShowDeleteModal(true)}>Delete Contact</Button>
-                                </div>
-                            </Card.Body>
-                        </Card>
-
-                        <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)}>
-                            <Modal.Header closeButton>
-                                <Modal.Title>Attention!</Modal.Title>
-                            </Modal.Header>
-                            <Modal.Body>You are deleting this user. This action is irreversible. Are you sure to proceed?</Modal.Body>
-                            <Modal.Footer>
-                                <Button variant="secondary" onClick={() => setShowDeleteModal(false)}>
-                                    Abort
-                                </Button>
-                                <Button variant="danger" onClick={onDeleteUserButtonClick}>
-                                    Delete
-                                </Button>
-                            </Modal.Footer>
-                        </Modal>
                     </div>
                 </Col>
             </Row>
@@ -366,4 +181,4 @@ const ContactsEditPage = ({ params }) => {
     )
 }
 
-export default ContactsEditPage
+export default ContactsViewPage
