@@ -1,8 +1,8 @@
 'use client'
 // import node module libraries
-import { useCallback, useMemo } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import Link from 'next/link';
-import { Col, Row, Container, Card, Form, Button, Breadcrumb } from 'react-bootstrap';
+import { Col, Row, Container, Card, Form, Button, Breadcrumb, Modal } from 'react-bootstrap';
 
 import { useForm } from 'react-hook-form';
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -20,6 +20,8 @@ const UsersPageEdit = ({ params }) => {
             { value: 'super-admin', label: 'Super Admin' }
           ]
     }, []);
+
+    const [showDeleteModal, setShowDeleteModal] = useState(false)
 
     const {
         register,
@@ -162,10 +164,25 @@ const UsersPageEdit = ({ params }) => {
                                 <Card.Title as="h4">Delete user</Card.Title>            
                                 <div>
                                 <p>Are you sure to delete this user?</p>
-                                <Button variant="danger" onClick={onDeleteUserButtonClick}>Delete User</Button>
+                                <Button variant="danger" onClick={() => setShowDeleteModal(true)}>Delete User</Button>
                                 </div>
                             </Card.Body>
                         </Card>
+
+                        <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)}>
+                            <Modal.Header closeButton>
+                                <Modal.Title>Attention!</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>You are deleting this user. This action is irreversible. Are you sure to proceed?</Modal.Body>
+                            <Modal.Footer>
+                                <Button variant="secondary" onClick={() => setShowDeleteModal(false)}>
+                                    Abort
+                                </Button>
+                                <Button variant="danger" onClick={onDeleteUserButtonClick}>
+                                    Delete
+                                </Button>
+                            </Modal.Footer>
+                        </Modal>
                     </div>
                 </Col>
             </Row>

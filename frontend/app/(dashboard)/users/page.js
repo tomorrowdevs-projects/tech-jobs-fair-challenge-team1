@@ -7,11 +7,6 @@ import { Col, Row, Container, Card, Form, Button, Table } from 'react-bootstrap'
 import { PageHeading } from 'widgets'
 
 const UsersPage = () => {
-    const onDeleteUserButtonClick = useCallback(user => {
-        // TODO: API integration
-        alert('delete user')
-    }, [])
-
     return (
         <Container className="p-6">
             <PageHeading heading="Users" />
@@ -24,7 +19,7 @@ const UsersPage = () => {
                         <th>Lastname</th>
                         <th>Email</th>
                         <th>Role</th>
-                        <th className="text-end">Actions</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -36,11 +31,8 @@ const UsersPage = () => {
                         <td>Admin</td>
                         <td className="text-end">
                             <Link href="/users/123" className="btn btn-primary me-2">
-                                <i className="fe fe-edit"></i>
+                                <i className="fe fe-edit"></i> Edit
                             </Link>
-                            <Button variant="danger" onClick={() => onDeleteUserButtonClick()}>
-                                <i className="fe fe-trash"></i>
-                            </Button>
                         </td>
                     </tr>
                     {/* API INTEGRATION */}
