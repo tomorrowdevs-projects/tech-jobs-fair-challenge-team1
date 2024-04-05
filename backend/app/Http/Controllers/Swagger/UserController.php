@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
  *      path="/api/users",
  *      summary="Crea un nuovo utente",
  *      tags={"User"},
- *      
+ *      security={{ "bearerAuth": {} }},
  *      @OA\RequestBody(
  *          required=true,
  *          @OA\MediaType(
@@ -51,7 +51,7 @@ use App\Http\Controllers\Controller;
  *      path="/api/users",
  *      summary="Restituisce una lista di utenti",
  *      tags={"User"},
- *      
+ *      security={{ "bearerAuth": {} }},
  *      @OA\Response(
  *          response=200,
  *          description="Ok",
@@ -73,7 +73,7 @@ use App\Http\Controllers\Controller;
  *      path="/api/users/{user}",
  *      summary=" Restituisce un utente specificato dall'ID",
  *      tags={"User"},
- * 
+ *      security={{ "bearerAuth": {} }},
  *      @OA\Parameter(
  *          description="User ID",
  *          in="path",
@@ -103,7 +103,7 @@ use App\Http\Controllers\Controller;
  *      path="/api/users/{user}",
  *      summary="Aggiorna un utente esistente",
  *      tags={"User"},
- * 
+ *      security={{ "bearerAuth": {} }}, 
  *      @OA\Parameter(
  *          description="User ID",
  *          in="path",
@@ -149,7 +149,7 @@ use App\Http\Controllers\Controller;
  *      path="/api/users/{user}",
  *      summary="Elimina un utente esistente",
  *      tags={"User"},
- * 
+ *      security={{ "bearerAuth": {} }},
  *      @OA\Parameter(
  *          description="User ID",
  *          in="path",
