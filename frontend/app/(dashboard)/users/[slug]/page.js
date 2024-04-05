@@ -11,7 +11,7 @@ import { isValidNumber } from 'libphonenumber-js'
 
 import InputPhone from 'components/InputPhone';
 
-const UsersPageEdit = ({ params }) => {
+const UsersEditPage = ({ params }) => {
     const rolesOptions = useMemo(() => {
         return [
             { value: 'basic', label: 'Basic' },
@@ -190,4 +190,4 @@ const UsersPageEdit = ({ params }) => {
     )
 }
 
-export default UsersPageEdit
+export default UsersEditPage
