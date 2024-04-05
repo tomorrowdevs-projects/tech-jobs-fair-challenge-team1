@@ -102,7 +102,7 @@ class ContactController extends Controller
         $contact->update($validatedData);
 
         // Restituisci i dati aggiornati del contatto
-        return response()->json(['message' => 'Contact updated successfully', 'contact' => $contact]);
+        return response()->json(['message' => 'Contact updated successfully', 'contact' => $contact], 201);
     }
 
     public function destroy($id)

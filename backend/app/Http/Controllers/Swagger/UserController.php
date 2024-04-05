@@ -99,7 +99,7 @@ use App\Http\Controllers\Controller;
  *      ),
  * ),
  * 
-  * @OA\Put(
+ * @OA\Put(
  *      path="/api/users/{user}",
  *      summary="Aggiorna un utente esistente",
  *      tags={"User"},
@@ -129,8 +129,8 @@ use App\Http\Controllers\Controller;
  *      ), 
  * 
  *      @OA\Response(
- *          response=200,
- *          description="Ok",
+ *          response=201,
+ *          description="Salvato",
  *          @OA\JsonContent(
  *              @OA\Property(property="data", type="object",
  *                  @OA\Property(property="id", type="integer", example="1"),

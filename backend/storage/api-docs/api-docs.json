@@ -7,6 +7,750 @@
     },
     "paths": {
         "/api/": {},
+        "/api/contacts": {
+            "get": {
+                "tags": [
+                    "Contact"
+                ],
+                "summary": "Restituisce una lista di contati",
+                "operationId": "4b9b9c91321d61a54084cf57fb9cdfdc",
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": "1"
+                                                    },
+                                                    "name": {
+                                                        "description": "Il nome dell'utente",
+                                                        "type": "string",
+                                                        "example": "Mario"
+                                                    },
+                                                    "surname": {
+                                                        "description": "Il cognome dell'utente",
+                                                        "type": "string",
+                                                        "example": "Rossi"
+                                                    },
+                                                    "email": {
+                                                        "description": "La email dell'utente",
+                                                        "type": "string",
+                                                        "format": "email",
+                                                        "example": "mycompany@gmail.com"
+                                                    },
+                                                    "phone_number": {
+                                                        "description": "Il numero di telefono dell'utente",
+                                                        "type": "string",
+                                                        "example": "+390001112233"
+                                                    },
+                                                    "category_id": {
+                                                        "description": "ID di categoria",
+                                                        "type": "integer",
+                                                        "example": "1"
+                                                    },
+                                                    "departments": {
+                                                        "description": "Array degli oggetti che rappresentano i dipartimenti",
+                                                        "type": "array",
+                                                        "items": {
+                                                            "properties": {
+                                                                "id": {
+                                                                    "description": "ID del dipartimento",
+                                                                    "type": "integer",
+                                                                    "example": "1"
+                                                                },
+                                                                "name": {
+                                                                    "description": "Nome del dipartimento",
+                                                                    "type": "string",
+                                                                    "example": "Marketing"
+                                                                }
+                                                            },
+                                                            "type": "object"
+                                                        }
+                                                    },
+                                                    "socials": {
+                                                        "description": "Elenco dei social",
+                                                        "type": "string",
+                                                        "example": "Facebook"
+                                                    },
+                                                    "country": {
+                                                        "description": "Paese",
+                                                        "type": "string",
+                                                        "example": "Italy"
+                                                    },
+                                                    "region": {
+                                                        "description": "Regione",
+                                                        "type": "string",
+                                                        "example": "Lazio"
+                                                    },
+                                                    "address": {
+                                                        "description": "Indirizzo",
+                                                        "type": "string",
+                                                        "example": "Via Roma 123"
+                                                    },
+                                                    "city": {
+                                                        "description": "Città",
+                                                        "type": "string",
+                                                        "example": "Roma"
+                                                    },
+                                                    "zipcode": {
+                                                        "description": "CAP",
+                                                        "type": "string",
+                                                        "example": "00100"
+                                                    },
+                                                    "vat": {
+                                                        "description": "Partita IVA",
+                                                        "type": "string",
+                                                        "example": "IT12345678901"
+                                                    },
+                                                    "companyName": {
+                                                        "description": "Nome dell'azienda",
+                                                        "type": "string",
+                                                        "example": "My Company"
+                                                    },
+                                                    "SDI": {
+                                                        "description": "Codice SDI",
+                                                        "type": "string",
+                                                        "example": "ABC123"
+                                                    },
+                                                    "company_name": {
+                                                        "description": "Il ruolo dell'utente",
+                                                        "type": "string",
+                                                        "example": "Gottlieb Ltd"
+                                                    },
+                                                    "created_at": {
+                                                        "description": "Data di creazione",
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2024-04-04T20:35:29.000000Z"
+                                                    },
+                                                    "updated_at": {
+                                                        "description": "Data di aggiornamento",
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2024-04-04T20:44:52.000000Z"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Contact"
+                ],
+                "summary": "Crea un nuovo contatto",
+                "operationId": "b5851b7e24b7921875cbc23bef6c0e49",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "surname",
+                                    "email",
+                                    "phone_number",
+                                    "category_id"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "description": "Il nome dell'utente",
+                                        "type": "string",
+                                        "example": "Mario"
+                                    },
+                                    "surname": {
+                                        "description": "Il cognome dell'utente",
+                                        "type": "string",
+                                        "example": "Rossi"
+                                    },
+                                    "email": {
+                                        "description": "La email dell'utente",
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "mycompany@gmail.com"
+                                    },
+                                    "phone_number": {
+                                        "description": "Il numero di telefono dell'utente",
+                                        "type": "string",
+                                        "example": "+390001112233"
+                                    },
+                                    "category_id": {
+                                        "description": "ID di categoria",
+                                        "type": "integer",
+                                        "example": "1"
+                                    },
+                                    "departments": {
+                                        "description": "ID del dipartimento",
+                                        "type": "array",
+                                        "items": {
+                                            "type": "integer"
+                                        },
+                                        "example": [
+                                            "1",
+                                            "2"
+                                        ]
+                                    },
+                                    "socials": {
+                                        "description": "Elenco dei social",
+                                        "type": "string",
+                                        "example": "Facebook"
+                                    },
+                                    "country": {
+                                        "description": "Paese",
+                                        "type": "string",
+                                        "example": "Italy"
+                                    },
+                                    "region": {
+                                        "description": "Regione",
+                                        "type": "string",
+                                        "example": "Lazio"
+                                    },
+                                    "address": {
+                                        "description": "Indirizzo",
+                                        "type": "string",
+                                        "example": "Via Roma 123"
+                                    },
+                                    "city": {
+                                        "description": "Città",
+                                        "type": "string",
+                                        "example": "Roma"
+                                    },
+                                    "zipcode": {
+                                        "description": "CAP",
+                                        "type": "string",
+                                        "example": "00100"
+                                    },
+                                    "vat": {
+                                        "description": "Partita IVA",
+                                        "type": "string",
+                                        "example": "IT12345678901"
+                                    },
+                                    "companyName": {
+                                        "description": "Nome dell'azienda",
+                                        "type": "string",
+                                        "example": "My Company"
+                                    },
+                                    "SDI": {
+                                        "description": "Codice SDI",
+                                        "type": "string",
+                                        "example": "ABC123"
+                                    },
+                                    "company_name": {
+                                        "description": "Il ruolo dell'utente",
+                                        "type": "string",
+                                        "example": "Gottlieb Ltd"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Creato con successo"
+                    },
+                    "400": {
+                        "description": "Richiesta non valida"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/contacts/{contact}": {
+            "get": {
+                "tags": [
+                    "Contact"
+                ],
+                "summary": " Restituisce un contatto specificato dall'ID",
+                "operationId": "a4b776868d6f87598086b0c130a52d4c",
+                "parameters": [
+                    {
+                        "name": "contact",
+                        "in": "path",
+                        "description": "Contact ID",
+                        "required": true,
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": "1"
+                                                },
+                                                "name": {
+                                                    "description": "Il nome dell'utente",
+                                                    "type": "string",
+                                                    "example": "Mario"
+                                                },
+                                                "surname": {
+                                                    "description": "Il cognome dell'utente",
+                                                    "type": "string",
+                                                    "example": "Rossi"
+                                                },
+                                                "email": {
+                                                    "description": "La email dell'utente",
+                                                    "type": "string",
+                                                    "format": "email",
+                                                    "example": "mycompany@gmail.com"
+                                                },
+                                                "phone_number": {
+                                                    "description": "Il numero di telefono dell'utente",
+                                                    "type": "string",
+                                                    "example": "+390001112233"
+                                                },
+                                                "category_id": {
+                                                    "description": "ID di categoria",
+                                                    "type": "integer",
+                                                    "example": "1"
+                                                },
+                                                "departments": {
+                                                    "description": "Array degli oggetti che rappresentano i dipartimenti",
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "description": "ID del dipartimento",
+                                                                "type": "integer",
+                                                                "example": "1"
+                                                            },
+                                                            "name": {
+                                                                "description": "Nome del dipartimento",
+                                                                "type": "string",
+                                                                "example": "Marketing"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "socials": {
+                                                    "description": "Elenco dei social",
+                                                    "type": "string",
+                                                    "example": "Facebook"
+                                                },
+                                                "country": {
+                                                    "description": "Paese",
+                                                    "type": "string",
+                                                    "example": "Italy"
+                                                },
+                                                "region": {
+                                                    "description": "Regione",
+                                                    "type": "string",
+                                                    "example": "Lazio"
+                                                },
+                                                "address": {
+                                                    "description": "Indirizzo",
+                                                    "type": "string",
+                                                    "example": "Via Roma 123"
+                                                },
+                                                "city": {
+                                                    "description": "Città",
+                                                    "type": "string",
+                                                    "example": "Roma"
+                                                },
+                                                "zipcode": {
+                                                    "description": "CAP",
+                                                    "type": "string",
+                                                    "example": "00100"
+                                                },
+                                                "vat": {
+                                                    "description": "Partita IVA",
+                                                    "type": "string",
+                                                    "example": "IT12345678901"
+                                                },
+                                                "companyName": {
+                                                    "description": "Nome dell'azienda",
+                                                    "type": "string",
+                                                    "example": "My Company"
+                                                },
+                                                "SDI": {
+                                                    "description": "Codice SDI",
+                                                    "type": "string",
+                                                    "example": "ABC123"
+                                                },
+                                                "company_name": {
+                                                    "description": "Il ruolo dell'utente",
+                                                    "type": "string",
+                                                    "example": "Gottlieb Ltd"
+                                                },
+                                                "created_at": {
+                                                    "description": "Data di creazione",
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-04-04T20:35:29.000000Z"
+                                                },
+                                                "updated_at": {
+                                                    "description": "Data di aggiornamento",
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-04-04T20:44:52.000000Z"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Contact"
+                ],
+                "summary": "Aggiorna un contatto esistente",
+                "operationId": "bdc2e6caafca75846cbc4a16ebd0aaae",
+                "parameters": [
+                    {
+                        "name": "contact",
+                        "in": "path",
+                        "description": "Contact ID",
+                        "required": true,
+                        "example": 1
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "surname",
+                                    "email",
+                                    "phone_number",
+                                    "category_id"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "description": "Il nome dell'utente",
+                                        "type": "string",
+                                        "example": "Mario"
+                                    },
+                                    "surname": {
+                                        "description": "Il cognome dell'utente",
+                                        "type": "string",
+                                        "example": "Rossi"
+                                    },
+                                    "email": {
+                                        "description": "La email dell'utente",
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "mycompany@gmail.com"
+                                    },
+                                    "phone_number": {
+                                        "description": "Il numero di telefono dell'utente",
+                                        "type": "string",
+                                        "example": "+390001112233"
+                                    },
+                                    "category_id": {
+                                        "description": "ID di categoria",
+                                        "type": "integer",
+                                        "example": "1"
+                                    },
+                                    "departments": {
+                                        "description": "ID del dipartimento",
+                                        "type": "array",
+                                        "items": {
+                                            "type": "integer"
+                                        },
+                                        "example": [
+                                            "1",
+                                            "2"
+                                        ]
+                                    },
+                                    "socials": {
+                                        "description": "Elenco dei social",
+                                        "type": "string",
+                                        "example": "Facebook"
+                                    },
+                                    "country": {
+                                        "description": "Paese",
+                                        "type": "string",
+                                        "example": "Italy"
+                                    },
+                                    "region": {
+                                        "description": "Regione",
+                                        "type": "string",
+                                        "example": "Lazio"
+                                    },
+                                    "address": {
+                                        "description": "Indirizzo",
+                                        "type": "string",
+                                        "example": "Via Roma 123"
+                                    },
+                                    "city": {
+                                        "description": "Città",
+                                        "type": "string",
+                                        "example": "Roma"
+                                    },
+                                    "zipcode": {
+                                        "description": "CAP",
+                                        "type": "string",
+                                        "example": "00100"
+                                    },
+                                    "vat": {
+                                        "description": "Partita IVA",
+                                        "type": "string",
+                                        "example": "IT12345678901"
+                                    },
+                                    "companyName": {
+                                        "description": "Nome dell'azienda",
+                                        "type": "string",
+                                        "example": "My Company"
+                                    },
+                                    "SDI": {
+                                        "description": "Codice SDI",
+                                        "type": "string",
+                                        "example": "ABC123"
+                                    },
+                                    "company_name": {
+                                        "description": "Il ruolo dell'utente",
+                                        "type": "string",
+                                        "example": "Gottlieb Ltd"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Salvato",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": "1"
+                                                },
+                                                "name": {
+                                                    "description": "Il nome dell'utente",
+                                                    "type": "string",
+                                                    "example": "Mario"
+                                                },
+                                                "surname": {
+                                                    "description": "Il cognome dell'utente",
+                                                    "type": "string",
+                                                    "example": "Rossi"
+                                                },
+                                                "email": {
+                                                    "description": "La email dell'utente",
+                                                    "type": "string",
+                                                    "format": "email",
+                                                    "example": "mycompany@gmail.com"
+                                                },
+                                                "phone_number": {
+                                                    "description": "Il numero di telefono dell'utente",
+                                                    "type": "string",
+                                                    "example": "+390001112233"
+                                                },
+                                                "category_id": {
+                                                    "description": "ID di categoria",
+                                                    "type": "integer",
+                                                    "example": "1"
+                                                },
+                                                "departments": {
+                                                    "description": "Array degli oggetti che rappresentano i dipartimenti",
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "description": "ID del dipartimento",
+                                                                "type": "integer",
+                                                                "example": "1"
+                                                            },
+                                                            "name": {
+                                                                "description": "Nome del dipartimento",
+                                                                "type": "string",
+                                                                "example": "Marketing"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "socials": {
+                                                    "description": "Elenco dei social",
+                                                    "type": "string",
+                                                    "example": "Facebook"
+                                                },
+                                                "country": {
+                                                    "description": "Paese",
+                                                    "type": "string",
+                                                    "example": "Italy"
+                                                },
+                                                "region": {
+                                                    "description": "Regione",
+                                                    "type": "string",
+                                                    "example": "Lazio"
+                                                },
+                                                "address": {
+                                                    "description": "Indirizzo",
+                                                    "type": "string",
+                                                    "example": "Via Roma 123"
+                                                },
+                                                "city": {
+                                                    "description": "Città",
+                                                    "type": "string",
+                                                    "example": "Roma"
+                                                },
+                                                "zipcode": {
+                                                    "description": "CAP",
+                                                    "type": "string",
+                                                    "example": "00100"
+                                                },
+                                                "vat": {
+                                                    "description": "Partita IVA",
+                                                    "type": "string",
+                                                    "example": "IT12345678901"
+                                                },
+                                                "companyName": {
+                                                    "description": "Nome dell'azienda",
+                                                    "type": "string",
+                                                    "example": "My Company"
+                                                },
+                                                "SDI": {
+                                                    "description": "Codice SDI",
+                                                    "type": "string",
+                                                    "example": "ABC123"
+                                                },
+                                                "company_name": {
+                                                    "description": "Il ruolo dell'utente",
+                                                    "type": "string",
+                                                    "example": "Gottlieb Ltd"
+                                                },
+                                                "created_at": {
+                                                    "description": "Data di creazione",
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-04-04T20:35:29.000000Z"
+                                                },
+                                                "updated_at": {
+                                                    "description": "Data di aggiornamento",
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-04-04T20:44:52.000000Z"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Richiesta non valida"
+                    },
+                    "404": {
+                        "description": "Categoria non trovata"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Contact"
+                ],
+                "summary": "Elimina un contatto esistente",
+                "operationId": "04f773c673a345ec813ca1ca424ad6ce",
+                "parameters": [
+                    {
+                        "name": "contact",
+                        "in": "path",
+                        "description": "Contact ID",
+                        "required": true,
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Contatto eliminato con successo"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Categoria non trovata",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Contatto non trovato"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/users": {
             "get": {
                 "tags": [
@@ -339,8 +1083,8 @@
                     }
                 },
                 "responses": {
-                    "200": {
-                        "description": "Ok",
+                    "201": {
+                        "description": "Salvato",
                         "content": {
                             "application/json": {
                                 "schema": {
