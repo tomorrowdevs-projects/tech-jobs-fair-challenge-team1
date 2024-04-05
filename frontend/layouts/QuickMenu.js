@@ -33,8 +33,10 @@ const QuickMenu = () => {
                         </div>
                         <div className=" dropdown-divider mt-3 mb-2"></div>
                     </Dropdown.Item>
-                    <Dropdown.Item>
-                        <i className="fe fe-user me-2"></i> Profile
+                    <Dropdown.Item as="div">
+                        <Link href="/profile">
+                            <i className="fe fe-user me-2"></i> Profile
+                        </Link>
                     </Dropdown.Item>
                     <Dropdown.Item>
                         <i className="fe fe-power me-2"></i>Sign Out
