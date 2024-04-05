@@ -3,37 +3,82 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Department\StoreRequest;
+use App\Http\Requests\Department\UpdateRequest;
+use App\Http\Resources\Department\DepartmentResource;
 use App\Models\Department;
 use Illuminate\Http\Request;
 
 class DepartmentController extends Controller
 {
-
-    public function all()
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
     {
+        // Recupera tutti i contatti dal database
         $departments = Department::all();
 
-        return response()->json(['departments' => $departments], 200);
+        return DepartmentResource::collection($departments);
     }
 
-    public function create(Request $request)
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
     {
-
-        $department = Department::create([
-            'name' => $request->name
-        ]);
-        return response()->json(['department' => $department], 201);
+        //
     }
 
-    public function delete($id)
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(StoreRequest $request)
     {
-        $department = Department::find($id);
-        if (!$department) {
-            return response()->json(['error' => 'Department not found'], 404);
-        }
+        $data = $request->validated();
 
-        $department -> delete();
+        $new_department = Department::create($data);
 
-        return response()->json(['message' => 'Dipartimento eliminato con successo'], 200);
+        return DepartmentResource::make($new_department);
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(Department $department)
+    {
+        return DepartmentResource::make($department);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(Department $department)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(UpdateRequest $request, Department $department)
+    {
+        $data = $request->validated();
+
+        $department->update($data);
+
+        return DepartmentResource::make($department);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Department $department)
+    {
+        $department->delete();
+        
+        return response()->json([
+            'message' => 'Dipartimento eliminato con successo'
+        ], 200);
     }
 }
