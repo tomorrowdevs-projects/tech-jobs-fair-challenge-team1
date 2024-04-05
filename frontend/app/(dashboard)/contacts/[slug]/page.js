@@ -133,7 +133,7 @@ const ContactsViewPage = ({ params }) => {
                                     </Col>
                                     <Col xs={12} className="mb-5">
                                         <h6 className="text-uppercase fs-5 ls-2">Email</h6>
-                                        <p className="mb-0">john.doe@gmail.com</p>
+                                        <p className="mb-0"><a href="mailto:john.doe@gmail.com">john.doe@gmail.com</a></p>
                                     </Col>
                                     <Col xs={6} className="mb-5">
                                         <h6 className="text-uppercase fs-5 ls-2">Country</h6>
@@ -153,7 +153,7 @@ const ContactsViewPage = ({ params }) => {
                                     </Col>
                                     <Col xs={6} className="mb-5">
                                         <h6 className="text-uppercase fs-5 ls-2">Phone number</h6>
-                                        <p className="mb-0">+390304568798</p>
+                                        <p className="mb-0"><a href="tel:+390304568798">+390304568798</a></p>
                                     </Col>
                                     <Col xs={6} className="mb-5">
                                         <h6 className="text-uppercase fs-5 ls-2">Socials</h6>
