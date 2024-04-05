@@ -44,10 +44,7 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 Route::resource('users', UserController::class)->middleware('jwt.auth');
 Route::resource('contacts', ContactController::class)->middleware('jwt.auth');
 Route::resource('categories', CategoryController::class)->middleware('jwt.auth');
-
-Route::get('/department/all', [DepartmentController::class, 'all']);
-Route::post('/department', [DepartmentController::class, 'create']);
-Route::delete('/department/{id}', [DepartmentController::class, 'delete']);
+Route::resource('departments', DepartmentController::class)->middleware('jwt.auth');
 
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout',  [LoginController::class, 'logout']);
