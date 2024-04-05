@@ -87,11 +87,11 @@ const Charts = () => {
     };
 
     return (
-        <Card className="h-100">
+        <Card className="h-100 mt-6">
             <Card.Body>
                 <div className="d-flex align-items-center justify-content-between">
                     <div>
-                        <h4 className="mb-0">Tasks Performance </h4>
+                        <h4 className="mb-0">Fake graph </h4>
                     </div>
                     <ActionMenu />
                 </div>
