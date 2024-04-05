@@ -1,16 +1,23 @@
 import {Card, Form} from "react-bootstrap";
+import {useEffect, useState} from "react";
 
-const ContactFilter = ({ filters, onFilterChange }) => {
+const ContactFilter = ({ filters, onFilterChange,searchQuery, onSearchQueryChange }) => {
     return (
         <Card className="card mb-3 border-4">
             <div className="card-body">
                 <div className="row">
                     <div className="col-md-7">
-                        <div className="mb-3 d-none d-md-none d-lg-block">
+                        <div className="mb-3 ">
                             {/* Search Form */}
                             <label className='mb-2'>Search Contacts</label>
                             <Form className="d-flex align-items-center">
-                                <Form.Control type="search" placeholder="Please type a least 3 characters" style={{width: "100%"}}></Form.Control>
+                                <Form.Control
+                                    value={searchQuery}
+                                    onChange={(e) => onSearchQueryChange(e.target.value)}
+                                    type="search"
+                                    placeholder="Please type at least 3 characters"
+                                    style={{width: "100%"}}
+                                    />
                             </Form>
                         </div>
                     </div>

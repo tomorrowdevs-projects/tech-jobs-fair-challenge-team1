@@ -2,9 +2,9 @@
 // import node module libraries
 import React, {Fragment, useEffect, useState} from "react";
 import Link from 'next/link';
-import {Container, Table, } from 'react-bootstrap';
+import {Container, Table,} from 'react-bootstrap';
 
-import { PageHeading } from 'widgets'
+import {PageHeading} from 'widgets'
 import ContactFilter from "../components/contact-filter/page";
 
 const ContactsPage = () => {
@@ -150,21 +150,65 @@ const ContactsPage = () => {
             selected: ""
         }
     });
-
+const [searchQuery,setSearchQuery] = useState('')
     // Function to handle filter changes
     const handleFilterChange = (name,value) => {
-        setFilters((prevFilters) => ({
-            ...prevFilters,
-            [name]: {
-                ...prevFilters[name],
-                selected: value,
-            },
-        }));
+            setFilters((prevFilters) => ({
+                ...prevFilters,
+                [name]: {
+                    ...prevFilters[name],
+                    selected: value,
+                },
+            }));
     };
+const handleSearchQueryChange = (value)=>{
+
+        setSearchQuery(value)
+
+}
+    useEffect(() => {
+        console.log(searchQuery,!searchQuery)
+        if (!searchQuery) {
+            // Reset contacts to initialContacts
+            setContacts(initialContacts);
+            return; // Exit early to prevent further processing
+        }
+            // Filter contacts based on search query
+            const filteredContacts = initialContacts.filter(contact => {
+                const fullName = `${contact.first_name} ${contact.last_name}`;
+                return fullName.toLowerCase().includes(searchQuery.toLowerCase());
+            });
+
+            // Sort filtered contacts by similarity
+            filteredContacts.sort((a, b) => {
+                const fullNameA = `${a.first_name} ${a.last_name}`;
+                const fullNameB = `${b.first_name} ${b.last_name}`;
+                // Calculate similarity score
+                const similarityA = getSimilarity(fullNameA.toLowerCase(), searchQuery.toLowerCase());
+                const similarityB = getSimilarity(fullNameB.toLowerCase(), searchQuery.toLowerCase());
+                // Sort by similarity score (higher similarity first)
+                return similarityB - similarityA;
+            });
+            setContacts(filteredContacts)
+
+        // Pass the filtered contacts to the parent component using onFilterChange
+    },[ searchQuery]);
+    function getSimilarity(str1, str2) {
+        // Convert strings to sets of characters
+        const set1 = new Set(str1.toLowerCase());
+        const set2 = new Set(str2.toLowerCase());
+
+        // Intersection of characters
+        const intersection = new Set([...set1].filter(char => set2.has(char)));
+
+        // Union of characters
+        const union = new Set([...set1, ...set2]);
+
+        return intersection.size / union.size;
+    }
     useEffect(() => {
         // Apply filters
         applyFilters();
-        console.log('ek')
     }, [ filters]);
 
     const applyFilters = () => {
@@ -221,7 +265,7 @@ const ContactsPage = () => {
     return (
         <Fragment>
             <Container className="p-6">
-                <ContactFilter filters={filters} onFilterChange={handleFilterChange}/>
+                <ContactFilter filters={filters} onFilterChange={handleFilterChange} onSearchQueryChange={handleSearchQueryChange} searchQuery={searchQuery}/>
                 <PageHeading 
                     heading={`Contacts(${contacts.length})`}
                     actions={
