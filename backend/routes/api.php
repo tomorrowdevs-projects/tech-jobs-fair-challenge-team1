@@ -43,11 +43,11 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 Route::resource('users', UserController::class)->middleware('jwt.auth');
 
 
-Route::get('/contacts', [ContactController::class, 'index']);
-Route::get('/contacts/{id}', [ContactController::class, 'show']);
-Route::post('/contacts', [ContactController::class, 'store']);
-Route::put('/contacts/{id}', [ContactController::class, 'update']);
-Route::delete('/contacts/{id}', [ContactController::class, 'destroy']);
+Route::get('/contacts', [ContactController::class, 'index'])->middleware('jwt.auth');;
+Route::get('/contacts/{id}', [ContactController::class, 'show'])->middleware('jwt.auth');;
+Route::post('/contacts', [ContactController::class, 'store'])->middleware('jwt.auth');;
+Route::put('/contacts/{id}', [ContactController::class, 'update'])->middleware('jwt.auth');;
+Route::delete('/contacts/{id}', [ContactController::class, 'destroy'])->middleware('jwt.auth');;
 
 Route::get('/category/all', [CategoriesController::class, 'all']);
 Route::post('/category', [CategoriesController::class, 'create']);
