@@ -9,7 +9,14 @@ import { PageHeading } from 'widgets'
 const DepartmentsPage = () => {
     return (
         <Container className="p-6">
-            <PageHeading heading="Departments" />
+            <PageHeading 
+                heading="Departments"    
+                actions={
+                    <Link className="btn btn-primary" href="/departments/create">
+                        <i className="fe fe-plus"></i> Add new department
+                    </Link>
+                }             
+            />
 
             <Table striped responsive className="text-nowrap">
                 <thead>
