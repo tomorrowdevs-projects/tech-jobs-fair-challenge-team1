@@ -9,7 +9,14 @@ import { PageHeading } from 'widgets'
 const UsersPage = () => {
     return (
         <Container className="p-6">
-            <PageHeading heading="Users" />
+            <PageHeading 
+                heading="Users"    
+                actions={
+                    <Link className="btn btn-primary" href="/users/create">
+                        <i className="fe fe-plus"></i> Add new user
+                    </Link>
+                }             
+            />
 
             <Table striped responsive className="text-nowrap">
                 <thead>
