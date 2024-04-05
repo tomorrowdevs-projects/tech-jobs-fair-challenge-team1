@@ -5,6 +5,7 @@ use App\Http\Controllers\API\ContactController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\UserController;
+use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 
@@ -19,12 +20,26 @@ use App\Http\Controllers\Auth\RegisterController;
 |
 */
 
+Route::group([
+
+    'middleware' => 'api',
+    'prefix' => 'auth'
+
+], function () {
+
+    Route::post('login', [AuthController::class, 'login']);
+    Route::post('logout', [AuthController::class, 'logout']);
+    Route::post('refresh', [AuthController::class, 'refresh']);
+    Route::post('me', [AuthController::class, 'me']);
+
+});
+
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
 
 
-Route::resource('users', UserController::class);
+Route::resource('users', UserController::class)->middleware('jwt.auth');
 
 
 Route::get('/contacts', [ContactController::class, 'index']);
