@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\CategoriesController;
+use App\Http\Controllers\API\CategoryController;
 use App\Http\Controllers\API\ContactController;
 use App\Http\Controllers\API\DepartmentController;
 use Illuminate\Http\Request;
@@ -41,17 +42,8 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 
 
 Route::resource('users', UserController::class)->middleware('jwt.auth');
-
-
-Route::get('/contacts', [ContactController::class, 'index'])->middleware('jwt.auth');;
-Route::get('/contacts/{id}', [ContactController::class, 'show'])->middleware('jwt.auth');;
-Route::post('/contacts', [ContactController::class, 'store'])->middleware('jwt.auth');;
-Route::put('/contacts/{id}', [ContactController::class, 'update'])->middleware('jwt.auth');;
-Route::delete('/contacts/{id}', [ContactController::class, 'destroy'])->middleware('jwt.auth');;
-
-Route::get('/category/all', [CategoriesController::class, 'all']);
-Route::post('/category', [CategoriesController::class, 'create']);
-Route::delete('/category/{id}', [CategoriesController::class, 'delete']);
+Route::resource('contacts', ContactController::class)->middleware('jwt.auth');
+Route::resource('categories', CategoryController::class)->middleware('jwt.auth');
 
 Route::get('/department/all', [DepartmentController::class, 'all']);
 Route::post('/department', [DepartmentController::class, 'create']);
