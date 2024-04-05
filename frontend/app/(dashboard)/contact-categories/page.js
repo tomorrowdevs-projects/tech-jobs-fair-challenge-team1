@@ -8,8 +8,15 @@ import { PageHeading } from 'widgets'
 
 const ContactCategoriesPage = () => {
     return (
-        <Container className="p-6">
-            <PageHeading heading="Contact categories" />
+        <Container className="p-6">            
+            <PageHeading 
+                heading="Contact categories"    
+                actions={
+                    <Link className="btn btn-primary" href="/contact-categories/create">
+                        <i className="fe fe-plus"></i> Add new contact category
+                    </Link>
+                }             
+            />
 
             <Table striped responsive className="text-nowrap">
                 <thead>
