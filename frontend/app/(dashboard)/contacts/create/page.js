@@ -11,7 +11,7 @@ import { isValidNumber } from 'libphonenumber-js'
 
 import InputPhone from 'components/InputPhone';
 
-const ContactsEditPage = ({ params }) => {
+const ContactsCreatePage = ({ params }) => {
     const categoriesOptions = useMemo(() => {
         return [
             { value: 'employer', label: 'Employer' },
@@ -30,8 +30,6 @@ const ContactsEditPage = ({ params }) => {
           ]
     }, []);
 
-    const [showDeleteModal, setShowDeleteModal] = useState(false)
-
     const {
         register,
         watch,
@@ -39,17 +37,6 @@ const ContactsEditPage = ({ params }) => {
         handleSubmit,    
         formState: { errors },
       } = useForm({
-        defaultValues: {
-          category: 'customer',
-          firstname: 'John',
-          lastname: 'Doe',
-          email: 'john.doe@gmail.com',
-          phoneNumber: '+390304568798',
-          socials: 'https://linkedin.com/john-doe',
-          companyName: 'John corporation',
-          vat: '',
-          sdi: '',
-        }, 
         resolver: yupResolver(yup.object({
           category: yup.string().required(),
           department: yup.string().required(),
@@ -61,7 +48,7 @@ const ContactsEditPage = ({ params }) => {
           city: yup.string(),      
           address: yup.string(),      
           zipCode: yup.string(),      
-          phoneNumber: yup.string().required(),
+          phoneNumber: yup.string(),
           socials: yup.string(),
           companyName: yup.string(),
           vat: yup.string(),
@@ -86,7 +73,7 @@ const ContactsEditPage = ({ params }) => {
                 <Col xl={{ span: 8, offset: 2 }} lg={{ span: 10, offset: 1 }} md={12} xs={12}>
                     <Breadcrumb>
                         <Breadcrumb.Item linkAs={Link} href="/contacts">Contacts</Breadcrumb.Item>
-                        <Breadcrumb.Item active>John Doe</Breadcrumb.Item>
+                        <Breadcrumb.Item active>Create</Breadcrumb.Item>
                     </Breadcrumb>
 
                     <hr/>
@@ -115,7 +102,7 @@ const ContactsEditPage = ({ params }) => {
                                         })}
                                     </Form.Select>
                                     <Form.Control.Feedback type="invalid">
-                                        {errors.category?.message}
+                                        {errors.role?.message}
                                     </Form.Control.Feedback>
                                 </Form.Group>
 
@@ -334,31 +321,6 @@ const ContactsEditPage = ({ params }) => {
                                 </Form>
                             </Card.Body>
                         </Card>
-
-                        <Card className="mt-6">
-                            <Card.Body>
-                                <Card.Title as="h4">Delete contact</Card.Title>            
-                                <div>
-                                <p>Are you sure to delete this contact?</p>
-                                <Button variant="danger" onClick={() => setShowDeleteModal(true)}>Delete Contact</Button>
-                                </div>
-                            </Card.Body>
-                        </Card>
-
-                        <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)}>
-                            <Modal.Header closeButton>
-                                <Modal.Title>Attention!</Modal.Title>
-                            </Modal.Header>
-                            <Modal.Body>You are deleting this user. This action is irreversible. Are you sure to proceed?</Modal.Body>
-                            <Modal.Footer>
-                                <Button variant="secondary" onClick={() => setShowDeleteModal(false)}>
-                                    Abort
-                                </Button>
-                                <Button variant="danger" onClick={onDeleteUserButtonClick}>
-                                    Delete
-                                </Button>
-                            </Modal.Footer>
-                        </Modal>
                     </div>
                 </Col>
             </Row>
@@ -366,4 +328,4 @@ const ContactsEditPage = ({ params }) => {
     )
 }
 
-export default ContactsEditPage
+export default ContactsCreatePage
