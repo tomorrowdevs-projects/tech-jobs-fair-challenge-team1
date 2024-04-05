@@ -31,7 +31,7 @@ const ContactCategoriesPage = () => {
                         <td>1</td>
                         <td>Employee</td>
                         <td className="text-end">
-                            <Link href="/contact-categories/123" className="btn btn-primary me-2">
+                            <Link href="/contact-categories/123" className="btn btn-primary">
                                 <i className="fe fe-edit"></i> Edit
                             </Link>
                         </td>

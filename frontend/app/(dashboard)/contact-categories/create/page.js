@@ -8,7 +8,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
-const ContactCategoriesCreatePage = ({ params }) => {
+const ContactCategoriesCreatePage = () => {
     const {
         register,        
         handleSubmit,    
@@ -24,7 +24,6 @@ const ContactCategoriesCreatePage = ({ params }) => {
         console.log(data)
         // console.log(isValidNumber(data.phoneNumber))
     }, [])
-
 
     return (
         <Container fluid className="p-6">

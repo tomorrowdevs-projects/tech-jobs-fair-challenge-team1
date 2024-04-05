@@ -37,7 +37,7 @@ const UsersPage = () => {
                         <td>john.doe@gmail.com</td>
                         <td>Admin</td>
                         <td className="text-end">
-                            <Link href="/users/123" className="btn btn-primary me-2">
+                            <Link href="/users/123" className="btn btn-primary">
                                 <i className="fe fe-edit"></i> Edit
                             </Link>
                         </td>
