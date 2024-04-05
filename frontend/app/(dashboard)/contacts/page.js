@@ -250,7 +250,7 @@ const ContactsPage = () => {
                                 <td>{contact.category}</td>
                                 <td className="text-end">
                                     <Link href={`/contacts/${contact.id}`} className="btn btn-primary">
-                                        <i className="fe fe-edit"></i> Edit
+                                        <i className="fe fe-book-open"></i> Show more
                                     </Link>
                                 </td>
                             </tr>
