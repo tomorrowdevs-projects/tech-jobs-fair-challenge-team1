@@ -21,15 +21,16 @@ const ContactFilter = ({ filters, onFilterChange }) => {
                             <label className="fw-bold mb-2">{filters[filterKey].label}:</label>
                             <select
                                 className="form-control"
-                                    value={filters[filterKey].selected}
-                                    onChange={(e) => onFilterChange(filterKey, e.target.value)}
-                                >
-                                    <option value="" disabled selected>---Select your option---</option>
-                                    {filters[filterKey].options.map((option) => (
-                                        <option key={option} value={option}>{option}</option>
-                                    ))}
-                                </select>
-                            </div>
+                                defaultValue=""
+                                value={filters[filterKey].selected}
+                                onChange={(e) => onFilterChange(filterKey, e.target.value)}
+                            >
+                                <option value="">No preference</option>
+                                {filters[filterKey].options.map((option) => (
+                                    <option key={option} value={option}>{option}</option>
+                                ))}
+                            </select>
+                        </div>
                         ))}
                     </div>
                 </div>

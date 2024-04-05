@@ -1,6 +1,6 @@
 'use client'
 // import node module libraries
-import React, {Fragment, useState} from "react";
+import React, {Fragment, useEffect, useState} from "react";
 import Link from 'next/link';
 import {Container, Table, } from 'react-bootstrap';
 
@@ -8,7 +8,7 @@ import { PageHeading } from 'widgets'
 import ContactFilter from "../components/contact-filter/page";
 
 const ContactsPage = () => {
-    const contacts = [
+    const initialContacts = [
         {
             "id": 1,
             "first_name": "John",
@@ -130,6 +130,7 @@ const ContactsPage = () => {
             "category": "Other"
         }
     ]
+    const [contacts,setContacts] = useState(initialContacts)
     const [sortedColumn, setSortedColumn] = useState(null);
     const [sortOrder, setSortOrder] = useState('asc'); // 'asc' or 'desc'
     const [filters, setFilters] = useState({
@@ -151,12 +152,47 @@ const ContactsPage = () => {
     });
 
     // Function to handle filter changes
-    const handleFilterChange = (event) => {
-        const { name, value } = event.target;
-        setFilters(prevFilters => ({
+    const handleFilterChange = (name,value) => {
+        setFilters((prevFilters) => ({
             ...prevFilters,
-            [name]: value
+            [name]: {
+                ...prevFilters[name],
+                selected: value,
+            },
         }));
+    };
+    useEffect(() => {
+        // Apply filters
+        applyFilters();
+        console.log('ek')
+    }, [ filters]);
+
+    const applyFilters = () => {
+        let filteredContacts = initialContacts;
+
+        // Apply category filter
+        if (filters.category.selected) {
+            filteredContacts = filteredContacts.filter(
+                (contact) => contact.category === filters.category.selected
+            );
+        }
+
+        // Apply company filter
+        if (filters.company.selected) {
+            filteredContacts = filteredContacts.filter(
+                (contact) => contact.company === filters.company.selected
+            );
+        }
+
+        // Apply department filter
+        if (filters.department.selected) {
+            filteredContacts = filteredContacts.filter(
+                (contact) => contact.department === filters.department.selected
+            );
+        }
+
+        // Update contacts state with filtered results
+        setContacts(filteredContacts);
     };
 
     const sortByColumn = (column) => {
