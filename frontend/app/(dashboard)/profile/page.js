@@ -1,8 +1,8 @@
 'use client'
 // import node module libraries
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import Link from 'next/link';
-import { Col, Row, Container, Card, Form, Button } from 'react-bootstrap';
+import { Col, Row, Container, Card, Form, Button, Modal } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -103,6 +103,8 @@ const Profile = () => {
       phoneNumber: yup.string()
     })) 
   })
+
+  const [showDeleteModal, setShowDeleteModal] = useState(false)
 
   const onSubmit = useCallback(data => {
     // TODO: api integration
@@ -211,10 +213,25 @@ const Profile = () => {
                 <Card.Title as="h4">Delete account</Card.Title>            
                 <div>
                   <p>Are you sure to delete your account?</p>
-                  <Button variant="danger" onClick={onDeleteAccountButtonClick}>Delete Account</Button>
+                  <Button variant="danger" onClick={() => setShowDeleteModal(true)}>Delete Account</Button>
                 </div>
               </Card.Body>
             </Card>
+
+            <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)}>
+              <Modal.Header closeButton>
+                  <Modal.Title>Attention!</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>You are deleting this user. This action is irreversible. Are you sure to proceed?</Modal.Body>
+              <Modal.Footer>
+                  <Button variant="secondary" onClick={() => setShowDeleteModal(false)}>
+                      Abort
+                  </Button>
+                  <Button variant="danger" onClick={onDeleteAccountButtonClick}>
+                      Delete
+                  </Button>
+              </Modal.Footer>
+          </Modal>
           </div>
         </Col>
       </Row>
