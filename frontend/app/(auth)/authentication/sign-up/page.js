@@ -24,13 +24,6 @@ const SignUp = () => {
     handleSubmit,    
     formState: { errors },
   } = useForm({ 
-    defaultValues: {
-      firstname: 'asd',
-      lastname: 'asd',
-      password: '123456789',
-      passwordConfirm: '123456789',
-      phoneNumber: '+393476926593'
-    },
     resolver: yupResolver(yup.object({
       firstname: yup.string().required(),
       lastname: yup.string().required(),
