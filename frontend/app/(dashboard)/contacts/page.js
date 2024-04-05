@@ -184,7 +184,6 @@ const ContactsPage = () => {
 
     return (
         <Fragment>
-
             <Container className="p-6">
                 <ContactFilter filters={filters} onFilterChange={handleFilterChange}/>
                 <PageHeading 
@@ -202,13 +201,6 @@ const ContactsPage = () => {
                         <th scope="col">#</th>
                         <th scope="col" onClick={() => sortByColumn('first_name')} style={{cursor: 'pointer'}}>
                             Name {sortedColumn === 'first_name' ? (
-                            <>&nbsp;{sortOrder === 'asc' ? <>&darr;</> : <>&uarr;</>}</>
-                        ) : (
-                            <>&nbsp;&uarr;</>
-                        )}
-                        </th>
-                        <th scope="col" onClick={() => sortByColumn('last_name')} style={{cursor: 'pointer'}}>
-                            SurName {sortedColumn === 'last_name' ? (
                             <>&nbsp;{sortOrder === 'asc' ? <>&darr;</> : <>&uarr;</>}</>
                         ) : (
                             <>&nbsp;&uarr;</>
@@ -243,8 +235,7 @@ const ContactsPage = () => {
                         return (
                             <tr key={contact.id}>
                                 <th scope="row">{index + 1}</th>
-                                <td>{contact.first_name}</td>
-                                <td>{contact.last_name}</td>
+                                <td>{contact.first_name + ' '+ contact.last_name}</td>
                                 <td>{contact.phone}</td>
                                 <td>{contact.email}</td>
                                 <td>{contact.category}</td>
