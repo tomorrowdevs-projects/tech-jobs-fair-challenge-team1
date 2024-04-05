@@ -2,9 +2,10 @@
 // import node module libraries
 import React, {Fragment, useState} from "react";
 import Link from 'next/link';
-import {Container, Col, Row, Table, Card} from 'react-bootstrap';
+import {Container, Col, Row, Table, Card, Pagination} from 'react-bootstrap';
 
 import { PageHeading } from 'widgets'
+import ContactFilter from "../components/contact-filter/page";
 
 const ContactsPage = () => {
     const contacts = [
@@ -131,6 +132,32 @@ const ContactsPage = () => {
     ]
     const [sortedColumn, setSortedColumn] = useState(null);
     const [sortOrder, setSortOrder] = useState('asc'); // 'asc' or 'desc'
+    const [filters, setFilters] = useState({
+        category: {
+            label: "Category",
+            options: ['Employee','Partner','Customer','Other'],
+            selected: ""
+        },
+        company: {
+            label: "Company",
+            options: ['Google','Amazon', 'Hyundai','Tech Solutions'],
+            selected: ""
+        },
+        department: {
+            label: "Department",
+            options: ['IT','Marketing','Sales'],
+            selected: ""
+        }
+    });
+
+    // Function to handle filter changes
+    const handleFilterChange = (event) => {
+        const { name, value } = event.target;
+        setFilters(prevFilters => ({
+            ...prevFilters,
+            [name]: value
+        }));
+    };
 
     const sortByColumn = (column) => {
         if (sortedColumn === column) {
@@ -159,6 +186,7 @@ const ContactsPage = () => {
         <Fragment>
 
             <Container className="p-6">
+                <ContactFilter filters={filters} onFilterChange={handleFilterChange}/>
                 <PageHeading 
                     heading={`Contacts(${contacts.length})`}
                     actions={
