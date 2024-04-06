@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Contact;
+use App\Models\Department;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -17,6 +18,10 @@ class ContactsTableSeeder extends Seeder
     {
         // Recupera tutti gli ID degli utenti dal database
         $userIds = User::pluck('id')->toArray();
+        
+        // Recupera tutti gli ID degli utenti dal database
+        $departments = Department::all();
+        $departments_id = $departments->pluck('id');
 
         foreach (range(1, 50) as $index) {
             $new_contact = new Contact();
@@ -39,6 +44,9 @@ class ContactsTableSeeder extends Seeder
             $new_contact->created_at = now();
             $new_contact->updated_at = now();
             $new_contact->save();
+
+            $new_contact->departments()->attach($departments_id->random(mt_rand(1, min(3, $departments->count()))));
         }
+        
     }
 }
