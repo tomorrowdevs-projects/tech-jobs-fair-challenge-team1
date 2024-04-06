@@ -25,5 +25,11 @@ class Contact extends Model
         'vat',
         'sdi',
         'company_name',
+        'create_by_user_id'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
