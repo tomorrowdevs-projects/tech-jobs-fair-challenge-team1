@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,10 +40,15 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
-Route::resource('users', UserController::class)->middleware('jwt.auth');
-Route::resource('contacts', ContactController::class)->middleware('jwt.auth');
-
+// Route group per gestire User
+Route::middleware(['jwt.auth'])->group(function () {
+    Route::resource('users', UserController::class)->middleware('can:viewAny,App\Models\User');
+    
+    // Utilizza UserPolicy per gestire le autorizzazioni su singole azioni
+    Route::post('users', [UserController::class, 'register'])->middleware('can:create,App\Models\User');
+    Route::put('users/{user}', [UserController::class, 'update'])->middleware('can:update,user');
+    Route::delete('users/{user}', [UserController::class, 'destroy'])->middleware('can:delete,user');
+});
 
 // Route group per gestire Contact
 Route::middleware(['jwt.auth'])->group(function () {
@@ -76,6 +81,8 @@ Route::middleware(['jwt.auth'])->group(function () {
 });
 
 
+
+Route::post('refresh', [AuthController::class, 'refresh']);
 
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout',  [LoginController::class, 'logout']);
