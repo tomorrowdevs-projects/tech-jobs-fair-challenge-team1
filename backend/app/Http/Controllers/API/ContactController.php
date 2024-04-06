@@ -16,9 +16,10 @@ class ContactController extends Controller
      */
     public function index()
     {
-        // Recupera tutti i contatti dal database
-        $contacts = Contact::all();
+        // Carica tutti i contatti con i loro dipartimenti
+        $contacts = Contact::with('departments')->get();
 
+        // Restituisci la risorsa dei contatti con i dipartimenti
         return ContactResource::collection($contacts);
     }
 
@@ -50,6 +51,9 @@ class ContactController extends Controller
      */
     public function show(Contact $contact)
     {
+        // Carica i dipartimenti associati al contatto
+        $contact->load('departments');
+        
         return ContactResource::make($contact);
     }
 
