@@ -43,8 +43,17 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 
 Route::resource('users', UserController::class)->middleware('jwt.auth');
 Route::resource('contacts', ContactController::class)->middleware('jwt.auth');
-Route::resource('categories', CategoryController::class)->middleware('jwt.auth');
+// Route::resource('categories', CategoryController::class)->middleware('jwt.auth');
 Route::resource('departments', DepartmentController::class)->middleware('jwt.auth');
+
+Route::middleware(['jwt.auth'])->group(function () {
+    Route::resource('categories', CategoryController::class)->middleware('can:viewAny,App\Models\Category');
+    
+    // Utilizza CategoryPolicy per gestire le autorizzazioni su singole azioni
+    Route::post('categories', [CategoryController::class, 'store'])->middleware('can:create,App\Models\Category');
+    Route::put('categories/{category}', [CategoryController::class, 'update'])->middleware('can:update,category');
+    Route::delete('categories/{category}', [CategoryController::class, 'destroy'])->middleware('can:delete,category');
+});
 
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout',  [LoginController::class, 'logout']);
