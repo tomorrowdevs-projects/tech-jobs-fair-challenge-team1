@@ -36,7 +36,13 @@ class UserPolicy
      */
     public function update(User $user, User $model): bool
     {
-        return $user->role === 'admin' || $user->role === 'super-admin';
+        // Gli utenti di ruolo admin o super-admin possono aggiornare qualsiasi utente
+        if ($user->role === 'admin' || $user->role === 'super-admin') {
+            return true;
+        }
+
+        // Gli utenti di ruolo basic possono aggiornare solo il proprio profilo
+        return $user->id === $model->id;
     }
 
     /**

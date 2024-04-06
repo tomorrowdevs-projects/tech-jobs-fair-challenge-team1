@@ -13,7 +13,7 @@ class ContactPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->role === 'basic' || $user->role === 'maintainer' || $user->role === 'admin' || $user->role === 'super-admin';//
+        return $user->role === 'basic' || $user->role === 'maintainer' || $user->role === 'admin' || $user->role === 'super-admin'; //
     }
 
     /**
@@ -45,7 +45,18 @@ class ContactPolicy
      */
     public function delete(User $user, Contact $contact): bool
     {
-        return $user->role === 'maintainer' || $user->role === 'admin' || $user->role === 'super-admin';
+        // Se l'utente è un admin o un super-admin, può cancellare il contatto
+        if ($user->role === 'admin' || $user->role === 'super-admin') {
+            return true;
+        }
+
+        // Se l'utente è un maintainer, può cancellare solo i contatti che ha creato
+        if ($user->role === 'maintainer' && $contact->create_by_user_id === $user->id) {
+            return true;
+        }
+
+        // Se l'utente non ha i permessi, ritorna false
+        return false;
     }
 
     /**
