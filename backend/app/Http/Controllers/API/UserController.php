@@ -19,8 +19,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        // Recupera tutti gli utenti dal database
-        $users = User::all();
+        // Carica tutti gli utenti con i loro contatti
+        $users = User::with('contacts')->get();
 
         return UserResource::collection($users);
     }
@@ -95,6 +95,9 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
+        // Carica i contatti associati all'utente
+        $user->load('contacts');
+        
         return UserResource::make($user);
     }
 
