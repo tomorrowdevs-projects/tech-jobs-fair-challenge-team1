@@ -37,6 +37,9 @@ class ContactController extends Controller
     {
         $data = $request->validated();
 
+        // Crea il nuovo contatto
+        $data['create_by_user_id'] = $request->user()->id; // Imposta l'ID dell'utente che ha creato il contatto
+
         $new_contact = Contact::create($data);
 
         return ContactResource::make($new_contact);
@@ -67,14 +70,29 @@ class ContactController extends Controller
 
         $contact->update($data);
 
-        return ContactResource::make($contact);return ContactResource::make($contact);
+        return ContactResource::make($contact);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Contact $contact)
+    public function destroy(Request $request, Contact $contact)
     {
+        // Verifica se l'utente è autenticato e ha il permesso di cancellare contatti
+        $user = $request->user();
+        if (!$user->can('delete', $contact)) {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
+
+        // Verifica se l'utente è un maintainer
+        if ($user->role === 'maintainer') {
+            // Verifica se il contatto è stato creato dall'utente
+            if ($contact->create_by_user_id !== $user->id) {
+                return response()->json(['error' => 'You can only delete contacts created by you'], 403);
+            }
+        }
+
+        // Se l'utente ha il permesso, cancella il contatto
         $contact->delete();
 
         return response()->json([
