@@ -79,10 +79,3 @@ Route::middleware(['jwt.auth'])->group(function () {
     Route::put('departments/{department}', [DepartmentController::class, 'update'])->middleware('can:update,department');
     Route::delete('departments/{department}', [DepartmentController::class, 'destroy'])->middleware('can:delete,department');
 });
-
-
-
-Route::post('refresh', [AuthController::class, 'refresh']);
-
-Route::post('/login', [LoginController::class, 'login']);
-Route::post('/logout',  [LoginController::class, 'logout']);
