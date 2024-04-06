@@ -14,12 +14,35 @@ class ContactController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        // Recupera tutti i contatti dal database
-        $contacts = Contact::all();
+        $query = Contact::query();
+
+        // Applica i filtri opzionali
+        if ($request->has('name')) {
+            $query->where('name', 'like', '%' . $request->input('name') . '%');
+        }
+
+        if ($request->has('surname')) {
+            $query->where('surname', 'like', '%' . $request->input('surname') . '%');
+        }
+        if ($request->has('email')) {
+            $query->where('email', 'email', '%' . $request->input('email') . '%');
+        }
+
+        if ($request->has('company_name')) {
+            $query->where('company_name', 'company_name', '%' . $request->input('company_name') . '%');
+        }
+
+        if ($request->has('category_id')) {
+            $query->where('category_id', 'category_id', '%' . $request->input('email') . '%');
+        }
+
+        // Esegui la query
+        $contacts = $query->get();
 
         return ContactResource::collection($contacts);
+
     }
 
     /**

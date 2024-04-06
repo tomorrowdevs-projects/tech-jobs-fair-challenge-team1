@@ -107,3 +107,5 @@ or
 `php artisan migrate` 
 
 `php artisan db:seed --class=DatabaseSeeder`
+
+`php artisan migrate:fresh --seed`
