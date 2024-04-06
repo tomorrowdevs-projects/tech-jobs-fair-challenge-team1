@@ -30,7 +30,8 @@ class ContactResource extends JsonResource
             'piva' => $this->piva,
             'vat' => $this->vat,
             'sdi' => $this->sdi,
-            'company_name' => $this->company_name
+            'company_name' => $this->company_name,
+            'create_by_user_id' => $this->create_by_user_id
         ];
     }
 }
