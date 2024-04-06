@@ -44,6 +44,17 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 Route::resource('users', UserController::class)->middleware('jwt.auth');
 Route::resource('contacts', ContactController::class)->middleware('jwt.auth');
 
+
+// Route group per gestire Contact
+Route::middleware(['jwt.auth'])->group(function () {
+    Route::resource('contacts', ContactController::class)->middleware('can:viewAny,App\Models\Contact');
+    
+    // Utilizza ContactPolicy per gestire le autorizzazioni su singole azioni
+    Route::post('contacts', [ContactController::class, 'store'])->middleware('can:create,App\Models\Contact');
+    Route::put('contacts/{contact}', [ContactController::class, 'update'])->middleware('can:update,contact');
+    Route::delete('contacts/{contact}', [ContactController::class, 'destroy'])->middleware('can:delete,contact');
+});
+
 // Route group per gestire Category
 Route::middleware(['jwt.auth'])->group(function () {
     Route::resource('categories', CategoryController::class)->middleware('can:viewAny,App\Models\Category');
