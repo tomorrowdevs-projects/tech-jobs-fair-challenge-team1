@@ -14,13 +14,39 @@ class ContactController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         // Carica tutti i contatti con i loro dipartimenti
-        $contacts = Contact::with('departments')->get();
+        $contacts = Contact::with('departments');
+        
+        $query = $contacts->query();
+
+        // Applica i filtri opzionali
+        if ($request->has('name')) {
+            $query->where('name', 'like', '%' . $request->input('name') . '%');
+        }
+
+        if ($request->has('surname')) {
+            $query->where('surname', 'like', '%' . $request->input('surname') . '%');
+        }
+        if ($request->has('email')) {
+            $query->where('email', 'like', '%' . $request->input('email') . '%');
+        }
+
+        if ($request->has('company_name')) {
+            $query->where('company_name', 'like', '%' . $request->input('company_name') . '%');
+        }
+
+        if ($request->has('category_id')) {
+            $query->where('category_id', 'like', '%' . $request->input('category_id') . '%');
+        }
+
+        // Esegui la query
+        $contacts = $query->get();
 
         // Restituisci la risorsa dei contatti con i dipartimenti
         return ContactResource::collection($contacts);
+
     }
 
     /**
