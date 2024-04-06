@@ -111,12 +111,27 @@ class UserController extends Controller
      */
     public function update(UpdateRequest $request, User $user)
     {
-        $data = $request->validated();
+        // Utilizza la policy per verificare se l'utente autenticato può effettuare l'aggiornamento
+        $this->authorize('update', $user);
 
-        // Aggiorna le informazioni dell'utente con i dati validati
-        $user->update($data);
+        // Se si arriva a questo punto, l'utente ha il permesso necessario per effettuare l'aggiornamento
 
+        // Se l'utente è admin o super-admin, permetti di aggiornare il campo 'role'
+        if (auth()->user()->role === 'admin' || auth()->user()->role === 'super-admin') {
+            // Aggiorna l'utente con tutti i dati validati
+            $user->update($request->validated());
+        } else {
+            // Altrimenti, l'utente è basic o maintainer e non può modificare il campo 'role'
+            // Aggiorna l'utente con tutti i dati eccetto 'role'
+            $user->update($request->except('role'));
+        }
+
+        // Restituisci la risposta
         return UserResource::make($user);
+        // $data = $request->validated();
+
+        // // Aggiorna le informazioni dell'utente con i dati validati
+        // $user->update($data);
     }
 
     /**
