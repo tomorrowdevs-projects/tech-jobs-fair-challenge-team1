@@ -27,15 +27,15 @@ class ContactController extends Controller
             $query->where('surname', 'like', '%' . $request->input('surname') . '%');
         }
         if ($request->has('email')) {
-            $query->where('email', 'email', '%' . $request->input('email') . '%');
+            $query->where('email', 'like', '%' . $request->input('email') . '%');
         }
 
         if ($request->has('company_name')) {
-            $query->where('company_name', 'company_name', '%' . $request->input('company_name') . '%');
+            $query->where('company_name', 'like', '%' . $request->input('company_name') . '%');
         }
 
         if ($request->has('category_id')) {
-            $query->where('category_id', 'category_id', '%' . $request->input('email') . '%');
+            $query->where('category_id', 'like', '%' . $request->input('category_id') . '%');
         }
 
         // Esegui la query
