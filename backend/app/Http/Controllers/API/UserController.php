@@ -19,11 +19,12 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         // Carica tutti gli utenti con i loro contatti e i dipartimenti associati
-        $users = User::with('contacts.departments')->get();
+        $users = User::with('contacts.departments');
 
+        $users = $users->paginate($request['qtyForPage']);
         return UserResource::collection($users);
     }
 

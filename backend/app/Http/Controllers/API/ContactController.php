@@ -40,8 +40,9 @@ class ContactController extends Controller
             $contacts->where('category_id', $request->input('category_id'));
         }
 
-        // Esegui la query e ottieni i contatti
-        $contacts = $contacts->get();
+        // Esegui la query e ottieni i contatti paginati
+        $contacts = $contacts->paginate($request['qtyForPage']);
+
 
         // Restituisci la risorsa dei contatti con i dipartimenti
         return ContactResource::collection($contacts);
