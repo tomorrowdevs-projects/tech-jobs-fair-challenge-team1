@@ -29,6 +29,8 @@ return new class extends Migration
             $table->string('vat')->nullable();
             $table->string('sdi')->nullable();
             $table->string('company_name')->nullable();
+            $table->unsignedBigInteger('create_by_user_id')->nullable();
+            $table->foreign('create_by_user_id')->references('id')->on('users')->onDelete('set null')->onUpdate('cascade');
             $table->timestamps();
         });
     }
