@@ -32,4 +32,9 @@ class Contact extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function departments()
+    {
+        return $this->belongsToMany(Department::class);
+    }
 }
