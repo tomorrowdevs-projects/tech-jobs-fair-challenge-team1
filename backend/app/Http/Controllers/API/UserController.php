@@ -19,8 +19,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        // Carica tutti gli utenti con i loro contatti
-        $users = User::with('contacts')->get();
+        // Carica tutti gli utenti con i loro contatti e i dipartimenti associati
+        $users = User::with('contacts.departments')->get();
 
         return UserResource::collection($users);
     }
@@ -95,9 +95,9 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        // Carica i contatti associati all'utente
-        $user->load('contacts');
-        
+        // Carica i contatti e i dipartimenti associati all'utente
+        $user->load('contacts.departments');
+
         return UserResource::make($user);
     }
 
@@ -130,11 +130,7 @@ class UserController extends Controller
         }
 
         // Restituisci la risposta
-        return UserResource::make($user);
-        // $data = $request->validated();
-
-        // // Aggiorna le informazioni dell'utente con i dati validati
-        // $user->update($data);
+        return UserResource::make($user);;
     }
 
     /**
