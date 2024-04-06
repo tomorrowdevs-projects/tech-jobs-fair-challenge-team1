@@ -1,4 +1,5 @@
 import 'styles/theme.scss';
+import {AuthProvider} from "../context/AuthContext";
 
 export const metadata = {
     title: 'TechSolutions Inc',
@@ -8,10 +9,12 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
     return (
+        <AuthProvider>
         <html lang="en">
             <body className='bg-light'>
                 {children}
             </body>
         </html>
+        </AuthProvider>
     )
 }

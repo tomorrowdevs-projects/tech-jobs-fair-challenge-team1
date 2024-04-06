@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback } from 'react';
+import {useCallback, useContext} from 'react';
 import { Row, Col, Card, Form, Button } from 'react-bootstrap';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
@@ -8,6 +8,7 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
 
 import useMounted from 'hooks/useMounted';
+import {AuthContext} from "../../../../context/AuthContext";
 
 const SignIn = () => {
   const hasMounted = useMounted();
@@ -20,13 +21,18 @@ const SignIn = () => {
     resolver: yupResolver(yup.object({
       email: yup.string().email().required(),
       password: yup.string().min(6).required()
-    })) 
+    })) ,
+    defaultValues: {
+      email: 'maintainer@maintainer.com', // replace with your default email
+      password: 'maintainer' // replace with your default password
+    }
   })
+  const { login } = useContext(AuthContext);
+  
 
   const onSubmit = useCallback(data => {
-    // TODO: api integration
-    console.log(data)
-  }, [])
+  login(data.email, data.password)
+  }, [login])
   
   return (
     <Row className="align-items-center justify-content-center g-0 min-vh-100">
