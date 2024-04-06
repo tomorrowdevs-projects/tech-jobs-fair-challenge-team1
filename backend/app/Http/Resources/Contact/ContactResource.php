@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Contact;
 
+use App\Http\Resources\Department\DepartmentResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -31,7 +32,8 @@ class ContactResource extends JsonResource
             'vat' => $this->vat,
             'sdi' => $this->sdi,
             'company_name' => $this->company_name,
-            'create_by_user_id' => $this->create_by_user_id
+            'create_by_user_id' => $this->create_by_user_id,
+            'departments' => DepartmentResource::collection($this->whenLoaded('departments')),
         ];
     }
 }
