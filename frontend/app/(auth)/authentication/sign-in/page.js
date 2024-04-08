@@ -9,9 +9,11 @@ import * as yup from "yup"
 
 import useMounted from 'hooks/useMounted';
 import {AuthContext} from "../../../../context/AuthContext";
+import { useRouter } from 'next/navigation';
 
 const SignIn = () => {
   const hasMounted = useMounted();
+  const router = useRouter();
 
   const {
     register,
@@ -20,18 +22,22 @@ const SignIn = () => {
   } = useForm({ 
     resolver: yupResolver(yup.object({
       email: yup.string().email().required(),
-      password: yup.string().min(6).required()
+      password: yup.string().min(5).required()
     })) ,
     defaultValues: {
-      email: 'maintainer@maintainer.com', // replace with your default email
-      password: 'maintainer' // replace with your default password
+      email: 'maintainer@maintainer.com',
+      password: 'maintainer'
     }
   })
   const { login } = useContext(AuthContext);
-  
 
-  const onSubmit = useCallback(data => {
-  login(data.email, data.password)
+
+  const onSubmit = useCallback(async data => {
+    await login(data.email, data.password)
+    console.log('here')
+
+    router.push('/contacts')
+
   }, [login])
   
   return (
