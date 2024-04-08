@@ -37,5 +37,8 @@
     "simplebar-react": "^3.2.4",
     "uuid": "^9.0.0",
     "yup": "^1.4.0"
+  },
+  "devDependencies": {
+    "json-server": "^1.0.0-alpha.23"
   }
 }
