@@ -69,4 +69,6 @@ const InputPhone = React.forwardRef(({
   )
 })
 
+InputPhone.displayName = 'InputPhone';
+
 export default InputPhone
