@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Col, Row, Container, Card, Form, Button, Table } from 'react-bootstrap';
 
 import { PageHeading } from 'widgets'
+import withAuth from "../../../utils/withAuth";
 
 const ContactCategoriesPage = () => {
     return (
@@ -44,4 +45,4 @@ const ContactCategoriesPage = () => {
     )
 }
 
-export default ContactCategoriesPage
+export default withAuth(ContactCategoriesPage)

@@ -6,6 +6,7 @@ import {Container, Table,} from 'react-bootstrap';
 
 import {PageHeading} from 'widgets'
 import ContactFilter from "../components/contact-filter/page";
+import withAuth from "../../../utils/withAuth";
 
 const ContactsPage = () => {
     const initialContacts = [
@@ -330,4 +331,4 @@ const handleSearchQueryChange = (value)=>{
         </Fragment>
     )
 }
-export default ContactsPage;
+export default withAuth(ContactsPage);

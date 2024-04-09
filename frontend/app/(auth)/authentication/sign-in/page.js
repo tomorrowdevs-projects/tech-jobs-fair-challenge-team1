@@ -29,14 +29,14 @@ const SignIn = () => {
       password: 'maintainer'
     }
   })
-  const { login } = useContext(AuthContext);
+  const { login,user } = useContext(AuthContext);
 
 
   const onSubmit = useCallback(async data => {
     await login(data.email, data.password)
-    console.log('here')
-
-    router.push('/contacts')
+    if(user.role === 'user') router.push('/contacts')
+    else
+    router.push('/')
 
   }, [login])
   

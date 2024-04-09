@@ -1,11 +1,11 @@
 'use client'
-import { createContext, useState } from 'react';
+import {createContext, useEffect, useState} from 'react';
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
-
+    const [isLoading, setIsLoading] = useState(true);
     const login = async (email, password) => {
         try {
             const response = await fetch('/api/signIn', {
@@ -19,6 +19,7 @@ export const AuthProvider = ({ children }) => {
             if (response.ok) {
                 const userData = await response.json();
                 setUser(userData?.user);
+                localStorage.setItem('user', JSON.stringify(userData?.user));
             } else {
                 console.error('Failed to login:', response.statusText);
             }
@@ -26,6 +27,16 @@ export const AuthProvider = ({ children }) => {
             console.error('Failed to login:', error);
         }
     };
+    const checkLocalStorage = () => {
+        const userData = localStorage.getItem('user');
+        if (userData) {
+            setUser(JSON.parse(userData));
+        }
+    };
+    useEffect(() => {
+        checkLocalStorage();
+        setIsLoading(false);
+    }, []);
 
     const logout = async () => {
         try {
@@ -39,7 +50,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     return (
-        <AuthContext.Provider value={{ user, login, logout }}>
+        <AuthContext.Provider value={{ user, login, logout,isLoading }}>
             {children}
         </AuthContext.Provider>
     );

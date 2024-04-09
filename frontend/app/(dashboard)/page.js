@@ -14,6 +14,7 @@ import { ActiveProjects, Teams,
 
 // import required data files
 import ProjectsStatsData from "data/dashboard/ProjectsStatsData";
+import withAuth from "../../utils/withAuth";
 
 const Home = () => {
     return (
@@ -48,4 +49,4 @@ const Home = () => {
         </Fragment>
     )
 }
-export default Home;
+export default withAuth(Home);

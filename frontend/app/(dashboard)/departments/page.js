@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Col, Row, Container, Card, Form, Button, Table } from 'react-bootstrap';
 
 import { PageHeading } from 'widgets'
+import withAuth from "../../../utils/withAuth";
 
 const DepartmentsPage = () => {
     return (
@@ -44,4 +45,4 @@ const DepartmentsPage = () => {
     )
 }
 
-export default DepartmentsPage
+export default withAuth(DepartmentsPage)
