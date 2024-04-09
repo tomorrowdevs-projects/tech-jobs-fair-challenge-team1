@@ -5,13 +5,19 @@ export async function POST(req, res) {
     if (req.method === 'POST') {
 
         const { email, password } = await req.json();
-        const response = await fetch(`${config.baseURL}/users`);
-        const users = await response.json();
-        const user = users.find(user => user.email === email && user.password === password);
-        if (user) {
-            return NextResponse.json({ message: 'Login successful', user });
+        console.log(email, password)
+        const response = await fetch(`${config.baseURL}/auth/login`,{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email, password }),
+        });
+        const {access_token} = await response.json();
+        if (access_token) {
+            return NextResponse.json({ message: 'Login successful', access_token }, { status: 200 });
         } else {
-            return NextResponse.json({ message: 'Invalid username or password' });
+            return NextResponse.json({ message: 'Invalid username or password' }, { status: 401 });
         }
     } else {
        return  NextResponse.json({ message: 'Method Not Allowed' });

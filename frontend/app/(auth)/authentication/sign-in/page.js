@@ -1,7 +1,7 @@
 'use client'
 
-import {useCallback, useContext} from 'react';
-import { Row, Col, Card, Form, Button } from 'react-bootstrap';
+import {useCallback, useContext, useState} from 'react';
+import {Row, Col, Card, Form, Button, Alert} from 'react-bootstrap';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from "@hookform/resolvers/yup"
@@ -25,19 +25,20 @@ const SignIn = () => {
       password: yup.string().min(5).required()
     })) ,
     defaultValues: {
-      email: 'maintainer@maintainer.com',
-      password: 'maintainer'
+      email: 'admin@admin.com',
+      password: 'admin123'
     }
   })
-  const { login,user } = useContext(AuthContext);
-
+  const { login } = useContext(AuthContext);
+const [showAlert, setShowAlert] = useState(false);
 
   const onSubmit = useCallback(async data => {
-    await login(data.email, data.password)
-    if(user.role === 'user') router.push('/contacts')
-    else
-    router.push('/')
-
+    try {
+      await login(data.email, data.password);
+      router.push('/contacts');
+    } catch (error) {
+      setShowAlert(true);
+    }
   }, [login])
   
   return (
@@ -83,7 +84,12 @@ const SignIn = () => {
                     {errors.password?.message}
                   </Form.Control.Feedback>
                 </Form.Group>
-                
+{showAlert &&
+                <Alert variant="danger" onClose={() => setShowAlert(false)} dismissible>
+                  <Alert.Heading>Holy guacamole!</Alert.Heading>You should check in on some of those fields below.
+                </Alert>
+}
+                {/* Submit */}
                 <div className="d-md-flex flex-column justify-content-center">
                   {/* Button */}
                   <Button variant="primary" type="submit">Sign In</Button>

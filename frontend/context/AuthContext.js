@@ -6,6 +6,18 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
+    useEffect(() => {
+        const checkLocalStorage = () => {
+            const userData = localStorage.getItem('user');
+            if (userData) {
+                setUser(JSON.parse(userData).user);
+            }
+            setIsLoading(false);
+        };
+
+        checkLocalStorage();
+    }, []);
+
     const login = async (email, password) => {
         try {
             const response = await fetch('/api/signIn', {
@@ -15,28 +27,29 @@ export const AuthProvider = ({ children }) => {
                 },
                 body: JSON.stringify({ email, password }),
             });
-
             if (response.ok) {
-                const userData = await response.json();
-                setUser(userData?.user);
-                localStorage.setItem('user', JSON.stringify(userData?.user));
+                const { access_token } = await response.json();
+                const userResponse = await fetch('/api/me', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${access_token}`,
+                    },
+                });
+                if (userResponse.ok) {
+                    const userData = await userResponse.json();
+                    localStorage.setItem('user', JSON.stringify({ access_token, user: userData }));
+                    setUser(userData);
+                } else {
+                    throw new Error('Failed to fetch user data');
+                }
             } else {
-                console.error('Failed to login:', response.statusText);
+                throw new Error('Failed to login');
             }
         } catch (error) {
-            console.error('Failed to login:', error);
+            throw error;
         }
     };
-    const checkLocalStorage = () => {
-        const userData = localStorage.getItem('user');
-        if (userData) {
-            setUser(JSON.parse(userData));
-        }
-    };
-    useEffect(() => {
-        checkLocalStorage();
-        setIsLoading(false);
-    }, []);
 
     const logout = async () => {
         try {
