@@ -271,7 +271,7 @@ const ContactsCreatePage = ({ params }) => {
                                         {errors.socials?.message}
                                     </Form.Control.Feedback>
                                     <Form.Text id="phoneNumberBlock" muted>
-                                    Social links must be separated by comma
+                                    Social links must be separated by comma ";"
                                     </Form.Text>
                                 </Form.Group>
 

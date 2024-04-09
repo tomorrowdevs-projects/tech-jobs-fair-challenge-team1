@@ -1,6 +1,6 @@
 'use client'
 // import node module libraries
-import React, {Fragment, useEffect, useState, useMemo} from "react";
+import React, {Fragment, useEffect, useState} from "react";
 import Link from 'next/link';
 import {Container, Table,} from 'react-bootstrap';
 
@@ -9,131 +9,128 @@ import ContactFilter from "../components/contact-filter/page";
 import withAuth from "../../../utils/withAuth";
 
 const ContactsPage = () => {
-    const initialContacts = useMemo(() => {
-        return [
-            {
-                "id": 1,
-                "first_name": "John",
-                "last_name": "Doe",
-                "phone": "123-456-7890",
-                "email": "john@example.com",
-                "category": "Employee"
-            },
-            {
-                "id": 2,
-                "first_name": "Jane",
-                "last_name": "Smith",
-                "phone": "456-789-1234",
-                "email": "jane@example.com",
-                "category": "Partner"
-            },
-            {
-                "id": 3,
-                "first_name": "Alice",
-                "last_name": "Johnson",
-                "phone": "789-123-4567",
-                "email": "alice@example.com",
-                "category": "Customer"
-            },
-            {
-                "id": 4,
-                "first_name": "Bob",
-                "last_name": "Brown",
-                "phone": "321-654-9870",
-                "email": "bob@example.com",
-                "category": "Employee"
-            },
-            {
-                "id": 5,
-                "first_name": "Emma",
-                "last_name": "Davis",
-                "phone": "987-654-3210",
-                "email": "emma@example.com",
-                "category": "Customer"
-            },
-            {
-                "id": 6,
-                "first_name": "Michael",
-                "last_name": "Wilson",
-                "phone": "741-852-9630",
-                "email": "michael@example.com",
-                "category": "Partner"
-            },
-            {
-                "id": 7,
-                "first_name": "Sarah",
-                "last_name": "Taylor",
-                "phone": "159-357-4806",
-                "email": "sarah@example.com",
-                "category": "Employee"
-            },
-            {
-                "id": 8,
-                "first_name": "David",
-                "last_name": "Martinez",
-                "phone": "369-258-1470",
-                "email": "david@example.com",
-                "category": "Other"
-            },
-            {
-                "id": 9,
-                "first_name": "Laura",
-                "last_name": "Anderson",
-                "phone": "258-369-1470",
-                "email": "laura@example.com",
-                "category": "Partner"
-            },
-            {
-                "id": 10,
-                "first_name": "James",
-                "last_name": "Moore",
-                "phone": "852-963-7410",
-                "email": "james@example.com",
-                "category": "Employee"
-            },
-            {
-                "id": 11,
-                "first_name": "Emily",
-                "last_name": "White",
-                "phone": "369-741-8520",
-                "email": "emily@example.com",
-                "category": "Customer"
-            },
-            {
-                "id": 12,
-                "first_name": "Daniel",
-                "last_name": "Harris",
-                "phone": "123-456-7890",
-                "email": "daniel@example.com",
-                "category": "Employee"
-            },
-            {
-                "id": 13,
-                "first_name": "Olivia",
-                "last_name": "Martin",
-                "phone": "456-789-1230",
-                "email": "olivia@example.com",
-                "category": "Partner"
-            },
-            {
-                "id": 14,
-                "first_name": "William",
-                "last_name": "Thompson",
-                "phone": "789-123-4560",
-                "email": "william@example.com",
-                "category": "Customer"
-            },
-            {
-                "id": 15,
-                "first_name": "Sophia",
-                "last_name": "Garcia",
-                "phone": "654-321-9870",
-                "email": "sophia@example.com",
-                "category": "Other"
-            }
-        ]
-    }, [])
-
+    const initialContacts = [
+        {
+            "id": 1,
+            "first_name": "John",
+            "last_name": "Doe",
+            "phone": "123-456-7890",
+            "email": "john@example.com",
+            "category": "Employee"
+        },
+        {
+            "id": 2,
+            "first_name": "Jane",
+            "last_name": "Smith",
+            "phone": "456-789-1234",
+            "email": "jane@example.com",
+            "category": "Partner"
+        },
+        {
+            "id": 3,
+            "first_name": "Alice",
+            "last_name": "Johnson",
+            "phone": "789-123-4567",
+            "email": "alice@example.com",
+            "category": "Customer"
+        },
+        {
+            "id": 4,
+            "first_name": "Bob",
+            "last_name": "Brown",
+            "phone": "321-654-9870",
+            "email": "bob@example.com",
+            "category": "Employee"
+        },
+        {
+            "id": 5,
+            "first_name": "Emma",
+            "last_name": "Davis",
+            "phone": "987-654-3210",
+            "email": "emma@example.com",
+            "category": "Customer"
+        },
+        {
+            "id": 6,
+            "first_name": "Michael",
+            "last_name": "Wilson",
+            "phone": "741-852-9630",
+            "email": "michael@example.com",
+            "category": "Partner"
+        },
+        {
+            "id": 7,
+            "first_name": "Sarah",
+            "last_name": "Taylor",
+            "phone": "159-357-4806",
+            "email": "sarah@example.com",
+            "category": "Employee"
+        },
+        {
+            "id": 8,
+            "first_name": "David",
+            "last_name": "Martinez",
+            "phone": "369-258-1470",
+            "email": "david@example.com",
+            "category": "Other"
+        },
+        {
+            "id": 9,
+            "first_name": "Laura",
+            "last_name": "Anderson",
+            "phone": "258-369-1470",
+            "email": "laura@example.com",
+            "category": "Partner"
+        },
+        {
+            "id": 10,
+            "first_name": "James",
+            "last_name": "Moore",
+            "phone": "852-963-7410",
+            "email": "james@example.com",
+            "category": "Employee"
+        },
+        {
+            "id": 11,
+            "first_name": "Emily",
+            "last_name": "White",
+            "phone": "369-741-8520",
+            "email": "emily@example.com",
+            "category": "Customer"
+        },
+        {
+            "id": 12,
+            "first_name": "Daniel",
+            "last_name": "Harris",
+            "phone": "123-456-7890",
+            "email": "daniel@example.com",
+            "category": "Employee"
+        },
+        {
+            "id": 13,
+            "first_name": "Olivia",
+            "last_name": "Martin",
+            "phone": "456-789-1230",
+            "email": "olivia@example.com",
+            "category": "Partner"
+        },
+        {
+            "id": 14,
+            "first_name": "William",
+            "last_name": "Thompson",
+            "phone": "789-123-4560",
+            "email": "william@example.com",
+            "category": "Customer"
+        },
+        {
+            "id": 15,
+            "first_name": "Sophia",
+            "last_name": "Garcia",
+            "phone": "654-321-9870",
+            "email": "sophia@example.com",
+            "category": "Other"
+        }
+    ]
     const [contacts,setContacts] = useState(initialContacts)
     const [sortedColumn, setSortedColumn] = useState(null);
     const [sortOrder, setSortOrder] = useState('asc'); // 'asc' or 'desc'
@@ -154,8 +151,7 @@ const ContactsPage = () => {
             selected: ""
         }
     });
-    const [searchQuery,setSearchQuery] = useState('')
-
+const [searchQuery,setSearchQuery] = useState('')
     // Function to handle filter changes
     const handleFilterChange = (name,value) => {
             setFilters((prevFilters) => ({
@@ -166,11 +162,9 @@ const ContactsPage = () => {
                 },
             }));
     };
-
-    const handleSearchQueryChange = (value)=>{
-            setSearchQuery(value)
-    }
-
+const handleSearchQueryChange = (value)=>{
+        setSearchQuery(value)
+}
     useEffect(() => {
         if (!searchQuery) {
             // Reset contacts to initialContacts
@@ -196,8 +190,7 @@ const ContactsPage = () => {
             setContacts(filteredContacts)
 
         // Pass the filtered contacts to the parent component using onFilterChange
-    },[ searchQuery, initialContacts]);
-
+    },[ searchQuery]);
     function getSimilarity(str1, str2) {
         // Convert strings to sets of characters
         const set1 = new Set([...str1.toLowerCase()]);
@@ -211,11 +204,10 @@ const ContactsPage = () => {
 
         return intersection.size / union.size;
     }
-    
     useEffect(() => {
         // Apply filters
         applyFilters();
-    }, [ filters, applyFilters]);
+    }, [ filters]);
 
     const applyFilters = () => {
         let filteredContacts = initialContacts;

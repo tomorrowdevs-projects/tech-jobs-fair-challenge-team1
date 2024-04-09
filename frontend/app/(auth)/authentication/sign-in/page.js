@@ -39,7 +39,7 @@ const [showAlert, setShowAlert] = useState(false);
     } catch (error) {
       setShowAlert(true);
     }
-  }, [login, router])
+  }, [login])
   
   return (
     <Row className="align-items-center justify-content-center g-0 min-vh-100">
