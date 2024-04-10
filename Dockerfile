@@ -56,4 +56,4 @@ RUN composer install --no-interaction --ignore-platform-req=ext-curl --optimize-
 EXPOSE 3000
 
 # Avvia i servizi backend e frontend
-CMD php artisan serve && yarn dev
+CMD php artisan serve & cd /app/frontend && yarn dev
