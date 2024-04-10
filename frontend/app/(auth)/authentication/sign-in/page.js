@@ -35,7 +35,7 @@ const [showAlert, setShowAlert] = useState(false);
   const onSubmit = useCallback(async data => {
     try {
       await login(data.email, data.password);
-      router.push('/contacts');
+      router.push('/');
     } catch (error) {
       setShowAlert(true);
     }
