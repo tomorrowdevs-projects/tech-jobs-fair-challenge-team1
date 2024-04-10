@@ -1,5 +1,6 @@
+'use client'
+
 import {Card, Form} from "react-bootstrap";
-import {useEffect, useState} from "react";
 
 const ContactFilter = ({ filters, onFilterChange,searchQuery, onSearchQueryChange }) => {
     return (
@@ -21,9 +22,9 @@ const ContactFilter = ({ filters, onFilterChange,searchQuery, onSearchQueryChang
                             </Form>
                         </div>
                     </div>
-                </div>
+                </div>                
                 <div className="row">
-                    {Object.keys(filters).map((filterKey) => (
+                    {filters && Object.keys(filters).map((filterKey) => (
                         <div className="col-md-4" key={filterKey}>
                             <label className="fw-bold mb-2">{filters[filterKey].label}:</label>
                             <select
