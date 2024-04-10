@@ -91,7 +91,7 @@ const Charts = () => {
             <Card.Body>
                 <div className="d-flex align-items-center justify-content-between">
                     <div>
-                        <h4 className="mb-0">Fake graph </h4>
+                        <h4 className="mb-0">Contact categories </h4>
                     </div>
                     <ActionMenu />
                 </div>

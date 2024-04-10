@@ -59,15 +59,15 @@ export const DashboardMenu = [
 		title: 'Profile',		
 		link: '/profile'
 	},
-	{
-		id: uuid(),
-		title: 'AUTH TEMPLATES',
-		grouptitle: true
-	},
-	{ id: uuid(), link: '/authentication/sign-in', title: 'Sign In' },
-	{ id: uuid(), link: '/authentication/sign-up', title: 'Sign Up' },
-	{ id: uuid(), link: '/authentication/forget-password', title: 'Forget Password'},
-	{ id: uuid(), link: '/not-found', title: '404 Error' },
+	// {
+	// 	id: uuid(),
+	// 	title: 'AUTH TEMPLATES',
+	// 	grouptitle: true
+	// },
+	// { id: uuid(), link: '/authentication/sign-in', title: 'Sign In' },
+	// { id: uuid(), link: '/authentication/sign-up', title: 'Sign Up' },
+	// { id: uuid(), link: '/authentication/forget-password', title: 'Forget Password'},
+	// { id: uuid(), link: '/not-found', title: '404 Error' },
 	// {
 	// 	id: uuid(),
 	// 	title: 'PAGE EXAMPLES',

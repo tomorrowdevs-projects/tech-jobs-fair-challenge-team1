@@ -9,7 +9,7 @@ import {
 
 import { Form, InputGroup, DropdownButton, Dropdown } from 'react-bootstrap';
 
-const InputPhone = React.forwardRef(({    
+const InputPhone = React.forwardRef(({
   defaultCountry = 'us',
   value,
   onChange,     
@@ -68,5 +68,6 @@ const InputPhone = React.forwardRef(({
     </InputGroup>
   )
 })
+InputPhone.displayName = 'InputPhone';
 
 export default InputPhone

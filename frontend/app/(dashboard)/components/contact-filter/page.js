@@ -1,7 +1,8 @@
+'use client'
 import {Card, Form} from "react-bootstrap";
-import {useEffect, useState} from "react";
 
-const ContactFilter = ({ filters, onFilterChange,searchQuery, onSearchQueryChange }) => {
+
+const ContactFilter = ({ filters={}, onFilterChange,searchQuery, onSearchQueryChange }) => {
     return (
         <Card className="card mb-3 border-4">
             <div className="card-body">

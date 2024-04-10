@@ -1,13 +1,12 @@
 'use client'
 // import node module libraries
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo } from 'react';
 import Link from 'next/link';
-import { Col, Row, Container, Card, Form, Button, Breadcrumb, Modal } from 'react-bootstrap';
+import { Col, Row, Container, Card, Form, Button, Breadcrumb } from 'react-bootstrap';
 
 import { useForm } from 'react-hook-form';
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { isValidNumber } from 'libphonenumber-js'
 
 import InputPhone from 'components/InputPhone';
 
@@ -271,7 +270,7 @@ const ContactsCreatePage = ({ params }) => {
                                         {errors.socials?.message}
                                     </Form.Control.Feedback>
                                     <Form.Text id="phoneNumberBlock" muted>
-                                    Social links must be separated by comma ";"
+                                    Social links must be separated by comma
                                     </Form.Text>
                                 </Form.Group>
 
