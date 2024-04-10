@@ -1,15 +1,13 @@
 # Usa un'immagine di base contenente un sistema operativo Linux, ad esempio Ubuntu
 FROM ubuntu:latest
 
+# Imposta l'area geografica predefinita per non richiedere input interattivi durante l'installazione dei pacchetti
+ENV DEBIAN_FRONTEND=noninteractive
+
 # Aggiorna il sistema e installa le dipendenze necessarie
-RUN apt-get update && apt-get install -y curl gnupg2 && \
-    curl -fsSL https://deb.nodesource.com/setup_16.x | bash - && \
-    apt-get install -y nodejs && \
-    apt-get install -y curl gnupg2 && \
-    curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
-    echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
-    apt-get update && apt-get install -y yarn &&  \
-    apt-get install -y \
+RUN apt-get update && apt-get install -y \
+    curl \
+    gnupg2 \
     apache2 \
     php \
     libapache2-mod-php \
@@ -17,42 +15,45 @@ RUN apt-get update && apt-get install -y curl gnupg2 && \
     php-gd \
     php-mbstring \
     php-xml \
+    php-curl \   
     composer \
     unzip \
+    mysql-server \
+    && curl -sS https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - \
+    && curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
+    && curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
+    && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
+    && apt-get update && apt-get install -y \
+    nodejs \
+    yarn \
     && apt-get clean \
-    && rm -rf /var/lib/apt/lists/* \
-
-# Aggiorna il sistema e installa MySQL Server
-RUN apt-get update && apt-get install -y mysql-server
+    && rm -rf /var/lib/apt/lists/*
 
 # Imposta la password di root per il database MySQL (sostituisci "password" con la tua password desiderata)
-RUN echo "mysql-server mysql-server/root_password password password" | debconf-set-selections
-RUN echo "mysql-server mysql-server/root_password_again password password" | debconf-set-selections
+RUN echo "mysql-server mysql-server/root_password password password" | debconf-set-selections \
+    && echo "mysql-server mysql-server/root_password_again password password" | debconf-set-selections
 
 # Copia tutti i file del tuo progetto nella directory di lavoro del container
 WORKDIR /app
-
 COPY . .
 
-RUN service mysql start && mysql -u root -ppassword -e "CREATE DATABASE laravel; CREATE USER 'user'@'localhost' IDENTIFIED BY 'password'; GRANT ALL PRIVILEGES ON laravel.* TO 'user'@'localhost'; FLUSH PRIVILEGES;"
+# Avvia il servizio MySQL e configura il database
+RUN service mysql start \
+    && mysql -u root -ppassword -e "CREATE DATABASE laravel_challenge; GRANT ALL PRIVILEGES ON laravel_challenge.* TO 'root'@'localhost'; FLUSH PRIVILEGES;"
 
-RUN cd frontend && yarn install --non-interactive
+# Installa le dipendenze del frontend
+WORKDIR /app/frontend
+RUN yarn install --non-interactive
 
-RUN cd backend  && composer install --no-interaction --optimize-autoloader
-
-RUN cd backend  && php artisan key:generate
-RUN cd backend  && php artisan migrate
-RUN cd backend  && php artisan db:seed --class=DatabaseSeeder
-
+# Installa le dipendenze del backend e genera la chiave dell'app Laravel
+WORKDIR /app/backend
+RUN composer update --no-interaction --ignore-platform-req=ext-curl --optimize-autoloader 
+RUN composer install --no-interaction --ignore-platform-req=ext-curl --optimize-autoloader \
+    && php artisan key:generate \
+    && php artisan migrate:fresh --seed \
+    && php artisan jwt:secret
+# Espone la porta 3000 per il frontend
 EXPOSE 3000
 
-CMD ["mysqld"]
-
-WORKDIR /backend
-
-CMD ["php", "artisan", "serve"]
-
-WORKDIR /frontend
-
-CMD ["yarn", "dev"]
-
+# Avvia i servizi backend e frontend
+CMD php artisan serve && yarn dev
