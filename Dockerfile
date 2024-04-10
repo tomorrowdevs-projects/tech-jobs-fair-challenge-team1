@@ -47,7 +47,7 @@ RUN yarn install --non-interactive
 
 # Installa le dipendenze del backend e genera la chiave dell'app Laravel
 WORKDIR /app/backend
-RUN mv .env.example .env
+RUN mv -f .env.example .env
 RUN composer update --no-interaction --ignore-platform-req=ext-curl --optimize-autoloader 
 RUN composer install --no-interaction --ignore-platform-req=ext-curl --optimize-autoloader \
     && php artisan key:generate \
